@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ChecklistManager : MonoBehaviour
 {
@@ -21,15 +22,6 @@ public class ChecklistManager : MonoBehaviour
 
     private void ToggleValueChanged(Toggle changedToggle)
     {
-        if(changedToggle.image.sprite == imagenNormal)
-        {
-            changedToggle.image.sprite = imagenSeleccionada;
-        }
-        else
-        {
-            changedToggle.image.sprite = imagenNormal;
-        }
-        
         // Desactiva todos los toggles excepto el que se ha cambiado
         foreach (Toggle toggle in toggles)
         {
@@ -39,6 +31,12 @@ public class ChecklistManager : MonoBehaviour
                 toggle.image.sprite = imagenNormal;
             }
         }
+
+        changedToggle.image.sprite = imagenSeleccionada;
+    }
+
+    public void Siguiente(){
+        SceneManager.LoadScene("Assets/Scenes/SeleccionPersonaje");
     }
 }
 
