@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761a0cd4b3c225943bfb335415e3601e, type: 3}
+  m_Script: {fileID: 11500000, guid: a951d323ca773b94db5dc0910c3fba19, type: 3}
   m_Name: Chocoboom
   m_EditorClassIdentifier: 
   personaje: {fileID: 4772595792004394944, guid: 8e15f57fb19dfab4489b4dd589afee88, type: 3}
   nombre: Chocoboom
-  imagen: {fileID: 21300000, guid: 6bcbe1ef82b37eb498da25bf3fd05161, type: 3}
+  imagen: {fileID: 21300000, guid: 26e47e8ace48cc649a900250b41074c3, type: 3}

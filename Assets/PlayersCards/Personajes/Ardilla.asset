@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761a0cd4b3c225943bfb335415e3601e, type: 3}
+  m_Script: {fileID: 11500000, guid: a951d323ca773b94db5dc0910c3fba19, type: 3}
   m_Name: Ardilla
   m_EditorClassIdentifier: 
   personaje: {fileID: 5226754325712260584, guid: 3ce885401cd2d0c41956ad4ad5477057, type: 3}
   nombre: Ardilla
-  imagen: {fileID: 21300000, guid: 93dc1939c0ddf65488919e77c870f71f, type: 3}
+  imagen: {fileID: 21300000, guid: bc11faebb53b3b24bac83b85e2a7e03a, type: 3}
