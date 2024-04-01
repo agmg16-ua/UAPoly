@@ -9,9 +9,9 @@ public class Dice : MonoBehaviour {
     // Reference to sprite renderer to change sprites
     private SpriteRenderer rend;
 
-    private int whosTurn = 1;
+    //private int whosTurn = 1;
 
-    private bool coroutineAllowed = true;
+    //private bool coroutineAllowed = true;
 
 	// Use this for initialization
 	private void Start () {
@@ -26,18 +26,18 @@ public class Dice : MonoBehaviour {
     }
 	
     // If you left click over the dice then RollTheDice coroutine is started
-    private void OnMouseDown()
+    public void moveDice()
     {
-        if(!GameControl.gameOver && coroutineAllowed) {
+        //if(!GameControl.gameOver && coroutineAllowed) {
             StartCoroutine("RollTheDice");
-        }
+        //}
     }
 
     // Coroutine that rolls the dice
     private IEnumerator RollTheDice()
     {
 
-        coroutineAllowed = false;
+        //coroutineAllowed = false;
         // Variable to contain random dice side number.
         // It needs to be assigned. Let it be 0 initially
         int randomDiceSide = 0;
@@ -59,17 +59,20 @@ public class Dice : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
         }
 
-        GameControl.diceSideThrown = randomDiceSide + 1;
+        RollDices.value += randomDiceSide + 1;
 
+        /*
         if (whosTurn == 1) {
             GameControl.MovePlayer(1);
         }
         else if (whosTurn == -1) {
             GameControl.MovePlayer(2);
         }
+        */
 
-        whosTurn *= -1;
-        coroutineAllowed = true;
+        //whosTurn *= -1;
+
+        //coroutineAllowed = true;
         // Assigning final side so you can use this value later in your game
         // for player movement for example
         finalSide = randomDiceSide + 1;
