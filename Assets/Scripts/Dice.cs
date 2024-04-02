@@ -9,6 +9,10 @@ public class Dice : MonoBehaviour {
     // Reference to sprite renderer to change sprites
     private SpriteRenderer rend;
 
+    //private int whosTurn = 1;
+
+    //private bool coroutineAllowed = true;
+
 	// Use this for initialization
 	private void Start () {
 
@@ -17,17 +21,23 @@ public class Dice : MonoBehaviour {
 
         // Load dice sides sprites to array from DiceSides subfolder of Resources folder
         diceSides = Resources.LoadAll<Sprite>("DiceSides/");
-	}
+	    
+        rend.sprite = diceSides[5];
+    }
 	
     // If you left click over the dice then RollTheDice coroutine is started
-    private void OnMouseDown()
+    public void moveDice()
     {
-        StartCoroutine("RollTheDice");
+        //if(!GameControl.gameOver && coroutineAllowed) {
+            StartCoroutine("RollTheDice");
+        //}
     }
 
     // Coroutine that rolls the dice
     private IEnumerator RollTheDice()
     {
+
+        //coroutineAllowed = false;
         // Variable to contain random dice side number.
         // It needs to be assigned. Let it be 0 initially
         int randomDiceSide = 0;
@@ -40,7 +50,7 @@ public class Dice : MonoBehaviour {
         for (int i = 0; i <= 20; i++)
         {
             // Pick up random value from 0 to 5 (All inclusive)
-            randomDiceSide = Random.Range(0, 5);
+            randomDiceSide = Random.Range(0, 6);
 
             // Set sprite to upper face of dice from array according to random value
             rend.sprite = diceSides[randomDiceSide];
@@ -49,6 +59,20 @@ public class Dice : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
         }
 
+        RollDices.value += randomDiceSide + 1;
+
+        /*
+        if (whosTurn == 1) {
+            GameControl.MovePlayer(1);
+        }
+        else if (whosTurn == -1) {
+            GameControl.MovePlayer(2);
+        }
+        */
+
+        //whosTurn *= -1;
+
+        //coroutineAllowed = true;
         // Assigning final side so you can use this value later in your game
         // for player movement for example
         finalSide = randomDiceSide + 1;
