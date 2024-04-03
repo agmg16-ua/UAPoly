@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761a0cd4b3c225943bfb335415e3601e, type: 3}
+  m_Script: {fileID: 11500000, guid: a951d323ca773b94db5dc0910c3fba19, type: 3}
   m_Name: Gato
   m_EditorClassIdentifier: 
   personaje: {fileID: 6692230875256478776, guid: 44b555e61925dea4e9e3aaab5ec86e59, type: 3}
   nombre: Gato
-  imagen: {fileID: 21300000, guid: 329f0c46c8483ef44b45fa94e57b4d89, type: 3}
+  imagen: {fileID: 21300000, guid: dab3339b037ee1d49ad0063d6daa9a80, type: 3}

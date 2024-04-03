@@ -237,7 +237,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 79d98f1aa1426144fa4d696bab880a82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c46723971cb00c749a0743187945a205, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -448,7 +448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e511573e763141449b171e274b27e982, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a3f24675b4e0144494e157bb1c34d8a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9b218bec635d417479037552909c69c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc11faebb53b3b24bac83b85e2a7e03a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -723,7 +723,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a2b6c78d41bb2bf4fa536b5e442fab73, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f0fe0aa935166740908ae42b6aeccbb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -767,7 +767,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 878560515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92d7d4d8cc5c82d49ad698d1d5f5be74, type: 3}
+  m_Script: {fileID: 11500000, guid: b600e61403a9c77478a7f15b181a535a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   personajes:
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d1e89c074d0093c4e9eb6a3649b5e2da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3e0c0b6968c65ca459cad22ec15ed114, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1041,7 +1041,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1330510621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63419b2e3f9dc3e489c941f9c13d5007, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f5ec15897da3234b9b56bd58a0c152f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   imagenPersonaje: {fileID: 714269057}

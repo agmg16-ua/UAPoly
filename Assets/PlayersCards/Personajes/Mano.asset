@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761a0cd4b3c225943bfb335415e3601e, type: 3}
+  m_Script: {fileID: 11500000, guid: a951d323ca773b94db5dc0910c3fba19, type: 3}
   m_Name: Mano
   m_EditorClassIdentifier: 
   personaje: {fileID: 3822535056131881519, guid: 95c550ee960cd674dbf0ff3526e4bfde, type: 3}
-  nombre: Mano de la UA
-  imagen: {fileID: 21300000, guid: 15298eb8a78794d45b1ee03fe103b130, type: 3}
+  nombre: Mano
+  imagen: {fileID: 21300000, guid: d01f25956ad0ad84f94209bfa06b9d84, type: 3}

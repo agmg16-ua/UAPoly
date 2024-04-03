@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761a0cd4b3c225943bfb335415e3601e, type: 3}
+  m_Script: {fileID: 11500000, guid: a951d323ca773b94db5dc0910c3fba19, type: 3}
   m_Name: Raton
   m_EditorClassIdentifier: 
   personaje: {fileID: 695428475785885857, guid: 87dbbc406f828154d8de214817dfe47e, type: 3}
-  nombre: Raton de Ordenador
-  imagen: {fileID: 21300000, guid: 8b7f8428768a37e4a931d14cfc682f3e, type: 3}
+  nombre: Raton
+  imagen: {fileID: 21300000, guid: d6a88dec6e98f8c4fbf1c6068997ddfa, type: 3}
