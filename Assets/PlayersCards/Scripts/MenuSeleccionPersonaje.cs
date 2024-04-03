@@ -8,15 +8,26 @@ using UnityEngine.SceneManagement;
 public class MenuSeleccionPersonaje : MonoBehaviour
 {
     private int index;
+    private int jugador;
+    public int numberPlayers;
     [SerializeField] private Image imagenPersonaje;
     [SerializeField] private TextMeshProUGUI nombrePersonaje;
     private GameManager gameManager;
+    private GameManagerSeleccion gameManagerSeleccion;
 
     private void Start()
     {
         gameManager = GameManager.instance;
-        index = PlayerPrefs.GetInt("PersonajeSeleccionado");
-
+        gameManagerSeleccion = GameManagerSeleccion.instance;
+        numberPlayers = gameManagerSeleccion.numeroJugadores;
+        index = PlayerPrefs.GetInt("PersonajeSeleccionado");    
+        gameManagerSeleccion.personajesSeleccionados = new int[numberPlayers];
+        for (int i = 0; i < gameManagerSeleccion.personajesSeleccionados.Length; i++)
+        {
+            gameManagerSeleccion.personajesSeleccionados[i] = -1;
+        }
+        
+        jugador = 0;
         if(index > gameManager.personajes.Count - 1){
             index = 0;
         }
@@ -37,6 +48,11 @@ public class MenuSeleccionPersonaje : MonoBehaviour
         else{
             index += 1;
         }
+
+        if(Contains(gameManagerSeleccion.personajesSeleccionados,index)){
+            BotonSiguiente();
+        }
+
         CambiarPantalla();
     }
 
@@ -47,10 +63,34 @@ public class MenuSeleccionPersonaje : MonoBehaviour
         else{
             index -= 1;
         }
+
+        if(Contains(gameManagerSeleccion.personajesSeleccionados,index)){
+            BotonAnterior();
+        }
+
         CambiarPantalla();
     }
 
     public void BotonSeleccionar(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        numberPlayers --;
+        if(numberPlayers == 0){
+            gameManagerSeleccion.personajesSeleccionados[jugador] = index;
+            SceneManager.LoadScene("Scenes/Game");
+        }
+        else{
+            gameManagerSeleccion.personajesSeleccionados[jugador] = index;
+            jugador ++;
+        }
+    }
+
+    public bool Contains(int[] valores,int entero){
+        for (int i = 0; i < valores.Length; i++)
+        {
+            if(valores[i] == entero){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
