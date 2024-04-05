@@ -35,6 +35,19 @@ public class GameControl : MonoBehaviour
         // Verifica si cada jugador ha alcanzado su waypoint objetivo
         for (int i = 0; i < 4; i++)
         {
+            
+            if (playerStartWaypoint[i] + diceSideThrown >= players[i].GetComponent<PlayerMove>().waypoints.Length - 1)  {
+                
+                int waypointsNextLap = diceSideThrown - (players[i].GetComponent<PlayerMove>().waypoints.Length - 1 - playerStartWaypoint[i]);
+
+                if (players[i].GetComponent<PlayerMove>().waypointIndex == 0) {
+                    playerStartWaypoint[i] = 0;
+                    diceSideThrown = waypointsNextLap;
+                }
+
+                Debug.Log("Player " + (i + 1) + " has completed a lap");                                
+            }
+
             if (players[i].GetComponent<PlayerMove>().waypointIndex > playerStartWaypoint[i] + diceSideThrown)
             {
                 players[i].GetComponent<PlayerMove>().moveAllowed = false;
