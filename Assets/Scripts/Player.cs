@@ -4,14 +4,20 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    public string playerName;
+    public static int numeroDeJugador = 0;
+
+    public string nombre;
     public int money;
     public Personajes personaje;
 
-    // Aquí puedes agregar más propiedades y métodos según tus necesidades
-
-    private void Start()
+    void Start()
     {
-        money = 1500;
+        // Marcar este objeto para no ser destruido al cargar una nueva escena
+        DontDestroyOnLoad(gameObject);
+    }
+    
+    public void SetPersonaje(Personajes personaje)
+    {
+        this.personaje = personaje;
     }
 }

@@ -14,6 +14,7 @@ public class MenuSeleccionPersonaje : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nombrePersonaje;
     private GameManager gameManager;
     private GameManagerSeleccion gameManagerSeleccion;
+    public TextMeshProUGUI pepe;
 
     private void Start()
     {
@@ -21,7 +22,9 @@ public class MenuSeleccionPersonaje : MonoBehaviour
         gameManagerSeleccion = GameManagerSeleccion.instance;
         numberPlayers = gameManagerSeleccion.numeroJugadores;
         index = PlayerPrefs.GetInt("PersonajeSeleccionado");    
-        gameManagerSeleccion.personajesSeleccionados = new int[numberPlayers];
+        gameManagerSeleccion.personajesSeleccionados = new int[numberPlayers];  
+        gameManager.jugadores = new List<Player>(numberPlayers);    //Numero de jugadores a crear
+
         for (int i = 0; i < gameManagerSeleccion.personajesSeleccionados.Length; i++)
         {
             gameManagerSeleccion.personajesSeleccionados[i] = -1;
@@ -75,11 +78,30 @@ public class MenuSeleccionPersonaje : MonoBehaviour
         numberPlayers --;
         if(numberPlayers == 0){
             gameManagerSeleccion.personajesSeleccionados[jugador] = index;
+
+            GameObject jugadorObject = new GameObject("Player" + (jugador + 1));
+            Player jugadorComponent = jugadorObject.AddComponent<Player>();
+            gameManager.jugadores.Add(jugadorComponent);
+            gameManager.jugadores[jugador].nombre = "Jugador" + (jugador + 1);
+            gameManager.jugadores[jugador].money = 1000;
+            gameManager.jugadores[jugador].personaje = gameManager.personajes[index];
+
+            pepe.text = gameManager.jugadores[jugador].nombre;
+            gameManager.jugadores[jugador].SetPersonaje(gameManager.personajes[index]);
             SceneManager.LoadScene("Scenes/Game");
         }
         else{
             gameManagerSeleccion.personajesSeleccionados[jugador] = index;
+            GameObject jugadorObject = new GameObject("Player" + (jugador + 1));
+            Player jugadorComponent = jugadorObject.AddComponent<Player>();
+            gameManager.jugadores.Add(jugadorComponent);
+            gameManager.jugadores[jugador].nombre = "Jugador" + (jugador + 1);
+            gameManager.jugadores[jugador].money = 1000;
+            gameManager.jugadores[jugador].personaje = gameManager.personajes[index];
+            pepe.text = gameManager.jugadores[jugador].nombre;
+            gameManager.jugadores[jugador].SetPersonaje(gameManager.personajes[index]);
             jugador ++;
+            BotonSiguiente();
         }
     }
 
