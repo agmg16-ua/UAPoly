@@ -2,63 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameControl : MonoBehaviour
 {
-    private static GameObject player1, player2;
+    // Referencias a los objetos de los jugadores
+    private static GameObject[] players = new GameObject[4];
 
+    // Índices de inicio de los waypoints para cada jugador
+    public static int[] playerStartWaypoint = new int[4];
+
+    // Número de caras del dado arrojado
     public static int diceSideThrown = 0;
-    public static int player1StartWaypoint = 0;
-    public static int player2StartWaypoint = 0;
 
+    // Booleano que indica si el juego ha terminado
     public static bool gameOver = false;
-    // Start is called before the first frame update
+
+    // Se llama al inicio del script
     void Start()
     {
-        player1 = GameObject.Find("Player1");
-        player2 = GameObject.Find("Player2");
-
-        player1.GetComponent<PlayerMove>().moveAllowed = false;
-        player2.GetComponent<PlayerMove>().moveAllowed = false;
+        // Encuentra los objetos de los jugadores y los almacena en un arreglo
+        for (int i = 0; i < 4; i++)
+        {
+            players[i] = GameObject.Find("Player" + (i + 1));
+            playerStartWaypoint[i] = 0;
+            players[i].GetComponent<PlayerMove>().moveAllowed = false;
+        }
     }
 
-    // Update is called once per frame
+    // Se llama una vez por fotograma
     void Update()
     {
-        if(player1.GetComponent<PlayerMove>().waypointIndex > 
-            player1StartWaypoint + diceSideThrown) 
+        // Verifica si cada jugador ha alcanzado su waypoint objetivo
+        for (int i = 0; i < 4; i++)
         {
-            player1.GetComponent<PlayerMove>().moveAllowed = false;
-            player1StartWaypoint = player1.GetComponent<PlayerMove>().waypointIndex - 1;
-        }
+            
+            if (playerStartWaypoint[i] + diceSideThrown >= players[i].GetComponent<PlayerMove>().waypoints.Length - 1)  {
+                
+                int waypointsNextLap = diceSideThrown - (players[i].GetComponent<PlayerMove>().waypoints.Length - 1 - playerStartWaypoint[i]);
 
-        if(player2.GetComponent<PlayerMove>().waypointIndex > 
-            player2StartWaypoint + diceSideThrown) 
-        {
-            player2.GetComponent<PlayerMove>().moveAllowed = false;
-            player2StartWaypoint = player2.GetComponent<PlayerMove>().waypointIndex - 1;
-        }
+                if (players[i].GetComponent<PlayerMove>().waypointIndex == 0) {
+                    playerStartWaypoint[i] = 0;
+                    diceSideThrown = waypointsNextLap;
+                }
 
-        if(player1.GetComponent<PlayerMove>().waypointIndex == 
-                       player1.GetComponent<PlayerMove>().waypoints.Length) {
-            gameOver = true;
-        }
+                Debug.Log("Player " + (i + 1) + " has completed a lap");                                
+            }
 
-        if(player2.GetComponent<PlayerMove>().waypointIndex == 
-            player2.GetComponent<PlayerMove>().waypoints.Length) 
-        {
-            gameOver = true;
+            if (players[i].GetComponent<PlayerMove>().waypointIndex > playerStartWaypoint[i] + diceSideThrown)
+            {
+                players[i].GetComponent<PlayerMove>().moveAllowed = false;
+                playerStartWaypoint[i] = players[i].GetComponent<PlayerMove>().waypointIndex - 1;
+            }
+
+            if (players[i].GetComponent<PlayerMove>().waypointIndex == players[i].GetComponent<PlayerMove>().waypoints.Length)
+            {
+                gameOver = true;
+            }
         }
-        
     }
 
-    public static void MovePlayer(int playerToMove) {
-        switch(playerToMove) {
-            case 1:
-                player1.GetComponent<PlayerMove>().moveAllowed = true;
-                break;
-            case 2:
-                player2.GetComponent<PlayerMove>().moveAllowed = true;
-                break;
-        }
-    }   
+    // Método estático para mover al jugador especificado
+    public static void MovePlayer(int playerToMove)
+    {
+        players[playerToMove - 1].GetComponent<PlayerMove>().moveAllowed = true;
+    }
 }
+

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class RollDices : MonoBehaviour
@@ -38,16 +39,45 @@ public class RollDices : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
 
         GameControl.diceSideThrown = value;
-
-        if (whosTurn == 1) {
+ 
+        if (whosTurn == 1)
+        {
             GameControl.MovePlayer(1);
-            Debug.Log("Player 1");
-        } else if (whosTurn == -1) {
-            GameControl.MovePlayer(2);
-            Debug.Log("Player 2");
+            UnityEngine.Debug.Log("Player 1");
+            whosTurn = 2;
         }
-
-        whosTurn *= -1;
+        else if (whosTurn == 2)
+        {
+            GameControl.MovePlayer(2);
+            UnityEngine.Debug.Log("Player 2");
+            whosTurn= 3;
+        }
+        else if(whosTurn == 3)
+        {
+            GameControl.MovePlayer(3);
+            UnityEngine.Debug.Log("Player 3");
+            whosTurn = 4;
+        }
+        else if( whosTurn == 4)
+        {
+            GameControl.MovePlayer(4);
+            UnityEngine.Debug.Log("Player 4");
+            whosTurn = 1;
+        }
         coroutineAllowed = true;
     }
 }
+
+
+/*
+     if (whosTurn == 1) {
+         GameControl.MovePlayer(1);
+         Debug.Log("Player 1");
+     } else if (whosTurn == -1) {
+         GameControl.MovePlayer(2);
+         Debug.Log("Player 2");
+     }
+
+     whosTurn *= -1;
+     coroutineAllowed = true;
+     */
