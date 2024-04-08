@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManagerSeleccion : MonoBehaviour
 {
-    public static GameManager instance;
-    public List<Personajes> personajes;
+    public static GameManagerSeleccion instance;
+    public int numeroJugadores;
+    public int[] personajesSeleccionados;
 
     private void Awake()
     {
