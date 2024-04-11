@@ -79,7 +79,7 @@ public class MenuSeleccionPersonaje : MonoBehaviour
         if(numberPlayers == 0){
             gameManagerSeleccion.personajesSeleccionados[jugador] = index;
 
-            GameObject jugadorObject = new GameObject("Player" + (jugador + 1));
+            GameObject jugadorObject = new GameObject("Jugador" + (jugador + 1));
             Player jugadorComponent = jugadorObject.AddComponent<Player>();
             gameManager.jugadores.Add(jugadorComponent);
             gameManager.jugadores[jugador].nombre = "Jugador" + (jugador + 1);
@@ -92,7 +92,7 @@ public class MenuSeleccionPersonaje : MonoBehaviour
         }
         else{
             gameManagerSeleccion.personajesSeleccionados[jugador] = index;
-            GameObject jugadorObject = new GameObject("Player" + (jugador + 1));
+            GameObject jugadorObject = new GameObject("Jugador" + (jugador + 1));
             Player jugadorComponent = jugadorObject.AddComponent<Player>();
             gameManager.jugadores.Add(jugadorComponent);
             gameManager.jugadores[jugador].nombre = "Jugador" + (jugador + 1);
