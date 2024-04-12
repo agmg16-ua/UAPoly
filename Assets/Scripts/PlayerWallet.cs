@@ -32,6 +32,7 @@ public class PlayerWallet : MonoBehaviour
 	public void CollectPassingGoMoney()
 	{
 		myWallet += 200;
+		Debug.Log("Player received $200 for passing Go. New balance: " + myWallet);
 	}
 
 	public int getWalletAmount()

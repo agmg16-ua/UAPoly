@@ -46,4 +46,13 @@ public class PlayerMove : MonoBehaviour
     }
 
 
+    ////cobrar 200 en salida
+    public void OnPassingGo()
+    {
+        // Obtén la instancia de PlayerWallet y aumenta el saldo en $200
+        PlayerWallet playerWallet = GetComponent<PlayerWallet>();
+        playerWallet.CollectPassingGoMoney();
+    }
+
+
 }
