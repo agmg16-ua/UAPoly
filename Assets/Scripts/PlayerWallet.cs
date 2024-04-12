@@ -5,14 +5,15 @@ public class PlayerWallet : MonoBehaviour
 {//this will store all the information a player has regarding money and properties
 	private int myWallet;
 	public ArrayList myLandList;
-	public PlayController monopolyGame;
+	public GameManager monopolyGame;
 	public bool isBankrupt;
+
 
 	// Use this for initialization
 	void Start()
 	{
 		isBankrupt = false;
-		myWallet = 0;
+		myWallet = 1500;
 		myLandList = new ArrayList();
 	}
 
@@ -26,6 +27,11 @@ public class PlayerWallet : MonoBehaviour
 			isBankrupt = true;
 			monopolyGame.updateGameStatus(false);
 		}
+	}
+
+	public void CollectPassingGoMoney()
+	{
+		myWallet += 200;
 	}
 
 	public int getWalletAmount()
@@ -56,3 +62,13 @@ public class PlayerWallet : MonoBehaviour
 	//something to manipulate landList
 
 }
+/*
+ * // Supongamos que este m?todo se llama cuando el jugador pasa por la casilla de salida
+void OnPlayerPassingGo() {
+    // Obt?n la instancia de PlayerWallet del jugador actual
+    PlayerWallet playerWallet = currentPlayer.GetComponent<PlayerWallet>();
+
+    // A?ade 200 a la cartera del jugador
+    playerWallet.CollectPassingGoMoney();
+}
+ */
