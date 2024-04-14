@@ -66,17 +66,24 @@ public class GameControl : MonoBehaviour
     {
         players[playerToMove - 1].GetComponent<PlayerMove>().moveAllowed = true;
 
-        // Obtener la posici?n de la casilla de salida
-        Vector3 salidaPosition = new Vector3(/* coordenadas de la casilla de salida */);
+        /* Obtener la posici?n de la casilla de salida
+        Vector3 salidaPosition = new Vector3(// coordenadas de la casilla de salida );
 
         // Obtener la posici?n actual del jugador
         Vector3 playerPosition = players[playerToMove - 1].transform.position;
 
         // Verificar si el jugador est? pasando por la casilla de salida (supongamos que si est? a una cierta distancia)
-        float distanciaUmbral = /* establecer la distancia umbral adecuada */;
+        float distanciaUmbral = // establecer la distancia umbral adecuada ;
         if (Vector3.Distance(playerPosition, salidaPosition) < distanciaUmbral)
         {
             // Llamar al m?todo para manejar el paso por la salida
+            players[playerToMove - 1].GetComponent<PlayerMove>().OnPassingGo();
+        }*/
+
+        // Verifica si el jugador est? en el waypoint de salida (index 0)
+        if (players[playerToMove - 1].GetComponent<PlayerMove>().waypointIndex == 0)
+        {
+            // Llama al m?todo para manejar el paso por la salida
             players[playerToMove - 1].GetComponent<PlayerMove>().OnPassingGo();
         }
     }
