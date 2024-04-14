@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 16480951}
   - component: {fileID: 16480950}
   - component: {fileID: 16480949}
+  - component: {fileID: 16480952}
   m_Layer: 0
   m_Name: Player4
   m_TagString: Untagged
@@ -265,6 +266,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &16480952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16480948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a481a58019531469c92677580558f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monopolyGame: {fileID: 0}
+  isBankrupt: 0
 --- !u!1 &36554111
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,6 +366,7 @@ GameObject:
   - component: {fileID: 109225283}
   - component: {fileID: 109225282}
   - component: {fileID: 109225281}
+  - component: {fileID: 109225284}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Untagged
@@ -482,6 +498,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &109225284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109225280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a481a58019531469c92677580558f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monopolyGame: {fileID: 0}
+  isBankrupt: 0
 --- !u!1 &125575209
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +523,7 @@ GameObject:
   - component: {fileID: 125575212}
   - component: {fileID: 125575211}
   - component: {fileID: 125575210}
+  - component: {fileID: 125575213}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -624,6 +655,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &125575213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125575209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a481a58019531469c92677580558f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monopolyGame: {fileID: 0}
+  isBankrupt: 0
 --- !u!1 &148230649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,6 +1617,7 @@ GameObject:
   - component: {fileID: 800256930}
   - component: {fileID: 800256929}
   - component: {fileID: 800256931}
+  - component: {fileID: 800256932}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -1703,6 +1749,20 @@ MonoBehaviour:
   moveSpeed: 5
   waypointIndex: 0
   moveAllowed: 0
+--- !u!114 &800256932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800256928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a481a58019531469c92677580558f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monopolyGame: {fileID: 0}
+  isBankrupt: 0
 --- !u!1 &867296374
 GameObject:
   m_ObjectHideFlags: 0
