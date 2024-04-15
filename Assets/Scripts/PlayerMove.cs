@@ -9,6 +9,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 3f;
 
+    public bool otraVuelta = false;
+
     [HideInInspector]
     public int waypointIndex = 0;
 
@@ -39,7 +41,7 @@ public class PlayerMove : MonoBehaviour
                 waypointIndex += 1;
             }
 
-            if(waypointIndex == waypoints.Length-2) {
+            if((waypointIndex == waypoints.Length-1) && (otraVuelta == true) ) {
                 waypointIndex = 0;
             }
         }

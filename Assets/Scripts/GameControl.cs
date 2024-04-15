@@ -24,7 +24,7 @@ public class GameControl : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             players[i] = GameObject.Find("Player" + (i + 1));
-            playerStartWaypoint[i] = 0;
+            playerStartWaypoint[i] = 30;
             players[i].GetComponent<PlayerMove>().moveAllowed = false;
         }
     }
@@ -36,21 +36,23 @@ public class GameControl : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             
-            if (playerStartWaypoint[i] + diceSideThrown >= players[i].GetComponent<PlayerMove>().waypoints.Length - 1)  {
+            if (playerStartWaypoint[i] + diceSideThrown > players[i].GetComponent<PlayerMove>().waypoints.Length - 1)  {
                 
                 int waypointsNextLap = diceSideThrown - (players[i].GetComponent<PlayerMove>().waypoints.Length - 1 - playerStartWaypoint[i]);
+
+                players[i].GetComponent<PlayerMove>().otraVuelta = true;
 
                 if (players[i].GetComponent<PlayerMove>().waypointIndex == 0) {
                     playerStartWaypoint[i] = 0;
                     diceSideThrown = waypointsNextLap;
-                }
-
-                Debug.Log("Player " + (i + 1) + " has completed a lap");                                
+                    Debug.Log("Player " + (i + 1) + " has completed a lap");
+                }                                             
             }
-
+            //Debug.Log("Player " + (i + 1) + " is at waypoint " + players[i].GetComponent<PlayerMove>().waypointIndex);
             if (players[i].GetComponent<PlayerMove>().waypointIndex > playerStartWaypoint[i] + diceSideThrown)
             {
                 players[i].GetComponent<PlayerMove>().moveAllowed = false;
+                players[i].GetComponent<PlayerMove>().otraVuelta = false;
                 playerStartWaypoint[i] = players[i].GetComponent<PlayerMove>().waypointIndex - 1;
             }
 
