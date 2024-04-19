@@ -24,7 +24,7 @@ public class GameControl : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             players[i] = GameObject.Find("Player" + (i + 1));
-            playerStartWaypoint[i] = 30;
+            playerStartWaypoint[i] = 0;
             players[i].GetComponent<PlayerMove>().moveAllowed = false;
         }
     }
