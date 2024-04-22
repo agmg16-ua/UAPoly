@@ -32,52 +32,111 @@ public class RollDices : MonoBehaviour
     private IEnumerator RollTheDice() {
         coroutineAllowed = false;
         value = 0;
-
+        
         Dado1.GetComponent<Dice>().moveDice();
         Dado2.GetComponent<Dice>().moveDice();
-        
         yield return new WaitForSeconds(3.0f);
-
         GameControl.diceSideThrown = value;
- 
+        UnityEngine.Debug.Log("Suma dados " +value);
+
         if (whosTurn == 1)
         {
-            GameControl.MovePlayer(1);
-            UnityEngine.Debug.Log("Player 1");
-            whosTurn = 2;
+            if (GameControl.jailTurns[0] > 0 && GameControl.inJail)
+            {
+                GameControl.jailTurns[0]--;
+                UnityEngine.Debug.Log("Turnos Player 1  in jail!: " + (GameControl.jailTurns[0]));
+                if (GameControl.jailTurns[0] == 0)
+                {
+                    UnityEngine.Debug.Log("Player 1 is out of jail!");
+                    GameControl.players[0].GetComponent<PlayerMove>().moveAllowed = true;// Reactivar el movimiento del jugador
+                    GameControl.inJail = false;
+                }
+                else
+                {
+                    whosTurn = 2;
+                }
+            }
+            else
+            {
+                GameControl.MovePlayer(1);
+                UnityEngine.Debug.Log("Player 1");
+                whosTurn = 2;
+            }
         }
         else if (whosTurn == 2)
         {
-            GameControl.MovePlayer(2);
-            UnityEngine.Debug.Log("Player 2");
-            whosTurn= 3;
+            if (GameControl.jailTurns[1] > 0 && GameControl.inJail)
+            {
+                GameControl.jailTurns[1]--;
+                UnityEngine.Debug.Log("Turnos Player 2 in Jail!: " + (GameControl.jailTurns[1]));
+                if (GameControl.jailTurns[1] == 0)
+                {
+                    UnityEngine.Debug.Log("Player 2 is out of jail!");
+                    GameControl.players[1].GetComponent<PlayerMove>().moveAllowed = true;// Reactivar el movimiento del jugador
+                    GameControl.inJail = false;
+                }
+                else
+                {
+                    whosTurn = 3;
+                }
+            }
+            else
+            {
+                GameControl.MovePlayer(2);
+                UnityEngine.Debug.Log("Player 2");
+                whosTurn = 3;
+            }
         }
         else if(whosTurn == 3)
         {
-            GameControl.MovePlayer(3);
-            UnityEngine.Debug.Log("Player 3");
-            whosTurn = 4;
+            if (GameControl.jailTurns[2] > 0 && GameControl.inJail)
+            {
+                GameControl.jailTurns[2]--;
+                UnityEngine.Debug.Log("Turnos Player 3 in Jail!: " + (GameControl.jailTurns[2]));
+                if (GameControl.jailTurns[2] == 0)
+                {
+                    UnityEngine.Debug.Log("Player 3 is out of jail!");
+                    GameControl.players[2].GetComponent<PlayerMove>().moveAllowed = true;// Reactivar el movimiento del jugador
+                    GameControl.inJail = false;
+                }
+                else
+                {
+                    whosTurn = 4;
+
+                }
+            }
+            else
+            {
+                GameControl.MovePlayer(3);
+                UnityEngine.Debug.Log("Player 3");
+                whosTurn = 4;
+            }
+           
         }
         else if( whosTurn == 4)
         {
-            GameControl.MovePlayer(4);
-            UnityEngine.Debug.Log("Player 4");
-            whosTurn = 1;
+            if (GameControl.jailTurns[3] > 0 && GameControl.inJail)
+            {
+                GameControl.jailTurns[3]--;
+                UnityEngine.Debug.Log("Turnos Player 4 in Jail!: " + (GameControl.jailTurns[3]));
+                if (GameControl.jailTurns[3] == 0)
+                {
+                    UnityEngine.Debug.Log("Player 4 is out of jail!");
+                    GameControl.players[3].GetComponent<PlayerMove>().moveAllowed = true;// Reactivar el movimiento del jugador
+                    GameControl.inJail = false;
+                }
+                else
+                {
+                    whosTurn = 1;
+                }
+            }
+            else
+            {
+                GameControl.MovePlayer(4);
+                UnityEngine.Debug.Log("Player 4");
+                whosTurn = 1;
+            }
         }
         coroutineAllowed = true;
     }
 }
-
-
-/*
-     if (whosTurn == 1) {
-         GameControl.MovePlayer(1);
-         Debug.Log("Player 1");
-     } else if (whosTurn == -1) {
-         GameControl.MovePlayer(2);
-         Debug.Log("Player 2");
-     }
-
-     whosTurn *= -1;
-     coroutineAllowed = true;
-     */
