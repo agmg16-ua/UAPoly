@@ -18,6 +18,7 @@ public class GameControl : MonoBehaviour
     public static bool gameOver = false;
     public static bool inJail = false;
 
+    public static bool[] restado = new bool[4];
     // Contador de turnos en la cárcel para cada jugador
     public static int[] jailTurns = new int[4];
 
@@ -27,6 +28,7 @@ public class GameControl : MonoBehaviour
         // Encuentra los objetos de los jugadores y los almacena en un arreglo
         for (int i = 0; i < 4; i++)
         {
+            restado[i] = false;
             players[i] = GameObject.Find("Player" + (i + 1));
             playerStartWaypoint[i] = 0;
             players[i].GetComponent<PlayerMove>().moveAllowed = false;
@@ -44,7 +46,10 @@ public class GameControl : MonoBehaviour
             {
                 StartCoroutine(SendToJail(i));
             }
-
+            else if (((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 4) || ((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 38))
+            {
+                StartCoroutine(restarImpuesto(i));
+            }
             else if ((playerStartWaypoint[i]+1) + diceSideThrown > players[i].GetComponent<PlayerMove>().waypoints.Length - 1)
             {
                 int waypointsNextLap = diceSideThrown - (players[i].GetComponent<PlayerMove>().waypoints.Length - 1 - playerStartWaypoint[i]);
@@ -99,6 +104,23 @@ public class GameControl : MonoBehaviour
         // Establece el contador de turnos en la cárcel a 3
         jailTurns[playerIndex] = 3;
         inJail = true;
+
+        // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
+        // Espera tres turnos antes de reactivar el movimiento
+        yield return new WaitForSeconds(3 * Time.deltaTime * 60);
+    }
+
+    // Método para enviar al jugador a la cárcel
+    private IEnumerator restarImpuesto(int playerIndex)
+    {
+        if(restado[playerIndex]== false)
+        {
+            // Restar $100 de la cartera del jugador
+            PlayerWallet playerWallet = players[playerIndex].GetComponent<PlayerWallet>();
+            playerWallet.subtractMoney(100);
+            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " lost $100. New balance: $" + playerWallet.getWalletAmount());
+        }
+        restado[playerIndex] = true;
 
         // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
         // Espera tres turnos antes de reactivar el movimiento

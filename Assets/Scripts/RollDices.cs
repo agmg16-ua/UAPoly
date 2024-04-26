@@ -36,7 +36,7 @@ public class RollDices : MonoBehaviour
         Dado1.GetComponent<Dice>().moveDice();
         Dado2.GetComponent<Dice>().moveDice();
         yield return new WaitForSeconds(3.0f);
-        GameControl.diceSideThrown = value;
+        GameControl.diceSideThrown = 38;
         UnityEngine.Debug.Log("Suma dados " +value);
 
         if (whosTurn == 1)
@@ -61,7 +61,9 @@ public class RollDices : MonoBehaviour
                 GameControl.MovePlayer(1);
                 UnityEngine.Debug.Log("Player 1");
                 whosTurn = 2;
+                
             }
+            GameControl.restado[0] = false;
         }
         else if (whosTurn == 2)
         {
@@ -86,6 +88,8 @@ public class RollDices : MonoBehaviour
                 UnityEngine.Debug.Log("Player 2");
                 whosTurn = 3;
             }
+            GameControl.restado[1] = false;
+
         }
         else if(whosTurn == 3)
         {
@@ -111,7 +115,9 @@ public class RollDices : MonoBehaviour
                 UnityEngine.Debug.Log("Player 3");
                 whosTurn = 4;
             }
-           
+            GameControl.restado[2] = false;
+
+
         }
         else if( whosTurn == 4)
         {
@@ -136,6 +142,8 @@ public class RollDices : MonoBehaviour
                 UnityEngine.Debug.Log("Player 4");
                 whosTurn = 1;
             }
+            GameControl.restado[3] = false;
+
         }
         coroutineAllowed = true;
     }
