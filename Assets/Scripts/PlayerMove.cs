@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public Transform[] waypoints;
+    public Transform[] waypoints = new Transform[41];
 
     [SerializeField]
-    private float moveSpeed = 3f;
+    private float moveSpeed = 5f;
 
     public bool otraVuelta = false;
 
@@ -20,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        transform.position = waypoints[waypointIndex].transform.position;    
+        transform.position = waypoints[waypointIndex].transform.position;
     }
 
     // Update is called once per frame
@@ -47,6 +47,22 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public void InitializeWaypoints()
+    {
+        for (int i = 0; i < waypoints.Length; i++)
+        {
+            // Busca los GameObjects por nombre y obtén su componente Transform
+            if (i == 0)
+            {
+                waypoints[i] = GameObject.Find("Waypoint").transform;
+            }
+            else
+            {
+                waypoints[i] = GameObject.Find("Waypoint (" + i + ")").transform;
+            }
+        }
+        transform.position = waypoints[waypointIndex].transform.position;
+    }
 
     ////cobrar 200 en salida
     /*public void OnPassingGo()

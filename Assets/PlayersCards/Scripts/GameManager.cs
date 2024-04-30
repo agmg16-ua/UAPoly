@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-  
 
     public void updateGameStatus(bool newStatus) { gameContinue = newStatus; }
 
