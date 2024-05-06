@@ -51,7 +51,7 @@ public class ManejoTarjetasCC : MonoBehaviour {
 
         // Assigning final side so you can use this value later in your game
         // for player movement for example
-        finalCard = randomCard + 1;
+        finalCard = randomCard;
 
         // Show final dice value in Console
         Debug.Log(finalCard);
