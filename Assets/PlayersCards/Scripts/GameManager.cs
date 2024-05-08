@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public List<Personajes> personajes;
     public List<Player> jugadores;
 
+    public bool gameContinue;
+
     private void Awake()
     {
         if (instance == null)
@@ -20,4 +22,18 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
+
+  
+
+    public void updateGameStatus(bool newStatus) { gameContinue = newStatus; }
+
+    //private int count = 0;
+    public bool getGameStatus()
+    {
+        //!!~~update winner
+        //count++;
+        //if (count > 100) {gameContinue = false;} //temp
+        return gameContinue;
+    }
 }
+
