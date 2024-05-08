@@ -22,6 +22,7 @@ public class GameControl : MonoBehaviour
     // Contador de turnos en la cárcel para cada jugador
     public static int[] jailTurns = new int[4];
 
+    public static int bote = 10;
     // Se llama al inicio del script
     void Start()
     {
@@ -48,7 +49,12 @@ public class GameControl : MonoBehaviour
             }
             else if (((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 4) || ((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 38))
             {
-                StartCoroutine(restarImpuesto(i));
+                StartCoroutine(restarImpuesto(i, 100));
+                
+            }
+            else if ((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 20)
+            {
+                StartCoroutine(sumarBote(i));
             }
             else if ((playerStartWaypoint[i]+1) + diceSideThrown > players[i].GetComponent<PlayerMove>().waypoints.Length - 1)
             {
@@ -88,6 +94,10 @@ public class GameControl : MonoBehaviour
     public static void MovePlayer(int playerToMove)
     {
         players[playerToMove - 1].GetComponent<PlayerMove>().moveAllowed = true;
+        if (players[playerToMove - 1].GetComponent<PlayerMove>().waypointIndex == 20)
+        {
+            bote = 10;
+        }
     }
 
     // Método para enviar al jugador a la cárcel
@@ -110,8 +120,8 @@ public class GameControl : MonoBehaviour
         yield return new WaitForSeconds(3 * Time.deltaTime * 60);
     }
 
-    // Método para enviar al jugador a la cárcel
-    private IEnumerator restarImpuesto(int playerIndex)
+    // Método para restar impuestos
+    private IEnumerator restarImpuesto(int playerIndex, int amount)
     {
         if(restado[playerIndex]== false)
         {
@@ -119,6 +129,32 @@ public class GameControl : MonoBehaviour
             PlayerWallet playerWallet = players[playerIndex].GetComponent<PlayerWallet>();
             playerWallet.subtractMoney(100);
             UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " lost $100. New balance: $" + playerWallet.getWalletAmount());
+
+            // Agrega la cantidad del impuesto al bote
+            bote += amount;
+            UnityEngine.Debug.Log("Added $" + amount + " to the pot. Current pot: $" + bote);
+
+        }
+        restado[playerIndex] = true;
+
+        // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
+        // Espera tres turnos antes de reactivar el movimiento
+        yield return new WaitForSeconds(3 * Time.deltaTime * 60);
+    }
+
+
+    // Método para sumar bote
+    private IEnumerator sumarBote(int playerIndex)
+    {
+        if (restado[playerIndex] == false)
+        {
+            // Restar $100 de la cartera del jugador
+            PlayerWallet playerWallet = players[playerIndex].GetComponent<PlayerWallet>();
+            playerWallet.addMoney(bote);
+            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " won the pot! Added $" + bote + " to their wallet. New balance: $" + playerWallet.getWalletAmount());
+
+            // Reiniciar el bote
+            bote = 0;
         }
         restado[playerIndex] = true;
 
