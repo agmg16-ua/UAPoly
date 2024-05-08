@@ -18,7 +18,7 @@ public class ManejoTarjetasSuerte : MonoBehaviour {
         // Load dice sides sprites to array from DiceSides subfolder of Resources folder
         tarjetasSuerte = Resources.LoadAll<Sprite>("TarjetasSuerte/");
 
-        rendTarjetas.sprite = tarjetasSuerte[0];
+        //rendTarjetas.sprite = tarjetasSuerte[0];
     }
 
     // If you left click over the dice then RollTheDice coroutine is started
