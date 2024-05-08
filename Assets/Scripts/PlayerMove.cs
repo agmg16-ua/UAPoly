@@ -20,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        transform.position = waypoints[waypointIndex].transform.position;
+
     }
 
     // Update is called once per frame
@@ -49,16 +49,19 @@ public class PlayerMove : MonoBehaviour
 
     public void InitializeWaypoints()
     {
+        // Busca el GameObject "BoardWayPoints"
+        GameObject boardWaypoints = GameObject.Find("BoardWayPoints");
+
         for (int i = 0; i < waypoints.Length; i++)
         {
             // Busca los GameObjects por nombre y obtén su componente Transform
             if (i == 0)
             {
-                waypoints[i] = GameObject.Find("Waypoint").transform;
+                waypoints[i] = boardWaypoints.transform.Find("Waypoint").transform;
             }
             else
             {
-                waypoints[i] = GameObject.Find("Waypoint (" + i + ")").transform;
+                waypoints[i] = boardWaypoints.transform.Find("Waypoint (" + i + ")").transform;
             }
         }
         transform.position = waypoints[waypointIndex].transform.position;

@@ -12,10 +12,10 @@ public class GameControl : MonoBehaviour
     // Referencias a los objetos de los jugadores
     private static Player[] players;
 
-    // ?ndices de inicio de los waypoints para cada jugador
+    // indices de inicio de los waypoints para cada jugador
     public static int[] playerStartWaypoint;
 
-    // N?mero de caras del dado arrojado
+    // Numero de caras del dado arrojado
     public static int diceSideThrown = 0;
 
     // Booleano que indica si el juego ha terminado
@@ -25,6 +25,7 @@ public class GameControl : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.instance;
+        players = new Player[gameManager.jugadores.Count];
         playerStartWaypoint = new int[gameManager.jugadores.Count];
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
@@ -32,6 +33,15 @@ public class GameControl : MonoBehaviour
             playerStartWaypoint[i] = 0;
             players[i].playerMovement.moveAllowed = false;
             players[i].playerMovement.InitializeWaypoints();
+            // Añade un componente SpriteRenderer al GameObject del jugador
+            SpriteRenderer spriteRenderer = players[i].gameObject.AddComponent<SpriteRenderer>();
+
+            // Asigna el Sprite del jugador al SpriteRenderer
+            spriteRenderer.sprite = players[i].personaje.imagen;
+
+            // Asegúrate de que el GameObject está en una posición donde la cámara pueda verlo
+            players[i].transform.position = players[i].playerMovement.waypoints[0].position;
+           
         }
     }
 
@@ -43,7 +53,7 @@ public class GameControl : MonoBehaviour
         {
             
             if (playerStartWaypoint[i] + diceSideThrown > players[i].playerMovement.waypoints.Length - 1)  {
-                
+                 
                 int waypointsNextLap = diceSideThrown - (players[i].playerMovement.waypoints.Length - 1 - playerStartWaypoint[i]);
 
                 players[i].playerMovement.otraVuelta = true;
@@ -80,6 +90,7 @@ public class GameControl : MonoBehaviour
     public static void MovePlayer(int playerToMove)
     {
         players[playerToMove - 1].playerMovement.moveAllowed = true;
+
     }
 }
 
