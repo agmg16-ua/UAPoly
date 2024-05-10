@@ -33,15 +33,17 @@ public class GameControl : MonoBehaviour
             playerStartWaypoint[i] = 0;
             players[i].playerMovement.moveAllowed = false;
             players[i].playerMovement.InitializeWaypoints();
+
             // Añade un componente SpriteRenderer al GameObject del jugador
             SpriteRenderer spriteRenderer = players[i].gameObject.AddComponent<SpriteRenderer>();
-
-            // Asigna el Sprite del jugador al SpriteRenderer
             spriteRenderer.sprite = players[i].personaje.imagen;
+
+            // Define el tamaño del sprite
+            float spriteSize = 1.0f; // Cambia esto al tamaño que desees
+            players[i].transform.localScale = new Vector3(spriteSize, spriteSize, 1);
 
             // Asegúrate de que el GameObject está en una posición donde la cámara pueda verlo
             players[i].transform.position = players[i].playerMovement.waypoints[0].position;
-           
         }
     }
 
@@ -90,7 +92,6 @@ public class GameControl : MonoBehaviour
     public static void MovePlayer(int playerToMove)
     {
         players[playerToMove - 1].playerMovement.moveAllowed = true;
-
     }
 }
 
