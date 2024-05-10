@@ -78,6 +78,4 @@ public class PlayerMove : MonoBehaviour
         PlayerWallet playerWallet = GetComponent<PlayerWallet>();
         playerWallet.CollectPassingGoMoney();
     }*/
-
-
 }

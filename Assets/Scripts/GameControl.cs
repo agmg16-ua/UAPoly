@@ -10,7 +10,7 @@ public class GameControl : MonoBehaviour
     private GameManager gameManager;
 
     // Referencias a los objetos de los jugadores
-    private static Player[] players;
+    public static Player[] players;
 
     // indices de inicio de los waypoints para cada jugador
     public static int[] playerStartWaypoint;
@@ -61,27 +61,26 @@ public class GameControl : MonoBehaviour
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
 
-            if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].playerMovement.waypointIndex == 31)
+            if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 31)
             {
                 StartCoroutine(SendToJail(i));
             }
-            else if (((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 4) || ((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 38))
+            else if (((playerStartWaypoint[i]) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 4) || ((playerStartWaypoint[i]) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 38))
             {
                 StartCoroutine(restarImpuesto(i, 100));
                 
             }
-            else if ((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 20)
+            else if ((playerStartWaypoint[i]) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 20)
             {
                 StartCoroutine(sumarBote(i));
             }
-            else if ((playerStartWaypoint[i]+1) + diceSideThrown > players[i].GetComponent<PlayerMove>().waypoints.Length - 1)
+            else if ((playerStartWaypoint[i]+1) + diceSideThrown > players[i].playerMovement.waypoints.Length - 1)
             {
                 int waypointsNextLap = diceSideThrown - (players[i].playerMovement.waypoints.Length - 1 - playerStartWaypoint[i]);
 
                 players[i].playerMovement.otraVuelta = true;
 
-                if (players[i].playerMovement.waypointIndex == 0) {
-                if (players[i].GetComponent<PlayerMove>().waypointIndex == 0)
+                if (players[i].playerMovement.waypointIndex == 0)
                 {
                     playerStartWaypoint[i] = 0;
                     diceSideThrown = waypointsNextLap;
@@ -94,16 +93,13 @@ public class GameControl : MonoBehaviour
                 }
             }
 
-            //Debug.Log("Player " + (i + 1) + " is at waypoint " + players[i].GetComponent<PlayerMove>().waypointIndex);
-            if (players[i].playerMovement.waypointIndex > playerStartWaypoint[i] + diceSideThrown)
-            else if (players[i].GetComponent<PlayerMove>().waypointIndex > playerStartWaypoint[i] + diceSideThrown)
-            {
+            //Debug.Log("Player " + (i + 1) + " is at waypoint " + players[i].playerMovement.waypointIndex);
+            if (players[i].playerMovement.waypointIndex > playerStartWaypoint[i] + diceSideThrown){
                 players[i].playerMovement.moveAllowed = false;
                 players[i].playerMovement.otraVuelta = false;
                 playerStartWaypoint[i] = players[i].playerMovement.waypointIndex - 1;
             }
-
-            else if (players[i].GetComponent<PlayerMove>().waypointIndex == players[i].GetComponent<PlayerMove>().waypoints.Length)
+            else if (players[i].playerMovement.waypointIndex == players[i].playerMovement.waypoints.Length)
             {
                 gameOver = true;
             }
@@ -113,8 +109,8 @@ public class GameControl : MonoBehaviour
     // Método estático para mover al jugador especificado
     public static void MovePlayer(int playerToMove)
     {
-        players[playerToMove - 1].GetComponent<PlayerMove>().moveAllowed = true;
-        if (players[playerToMove - 1].GetComponent<PlayerMove>().waypointIndex == 20)
+        players[playerToMove - 1].playerMovement.moveAllowed = true;
+        if (players[playerToMove - 1].playerMovement.waypointIndex == 20)
         {
             bote = 10;
         }
@@ -126,10 +122,10 @@ public class GameControl : MonoBehaviour
         UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " is in jail!");
         // Mueve al jugador a la casilla 10
         playerStartWaypoint[playerIndex] = 10;
-        players[playerIndex].GetComponent<PlayerMove>().waypointIndex = 10;
+        players[playerIndex].playerMovement.waypointIndex = 10;
 
         // Desactiva el movimiento del jugador
-        players[playerIndex].GetComponent<PlayerMove>().moveAllowed = false;
+        players[playerIndex].playerMovement.moveAllowed = false;
 
         // Establece el contador de turnos en la cárcel a 3
         jailTurns[playerIndex] = 3;

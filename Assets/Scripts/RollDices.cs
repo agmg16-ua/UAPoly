@@ -48,7 +48,7 @@ public class RollDices : MonoBehaviour
                 if (GameControl.jailTurns[0] == 0)
                 {
                     UnityEngine.Debug.Log("Player 1 is out of jail!");
-                    GameControl.players[0].GetComponent<PlayerMove>().moveAllowed = true;// Reactivar el movimiento del jugador
+                    GameControl.players[0].playerMovement.moveAllowed = true; // Reactivar el movimiento del jugador
                     GameControl.inJail = false;
                 }
                 else
@@ -74,7 +74,7 @@ public class RollDices : MonoBehaviour
                 if (GameControl.jailTurns[1] == 0)
                 {
                     UnityEngine.Debug.Log("Player 2 is out of jail!");
-                    GameControl.players[1].GetComponent<PlayerMove>().moveAllowed = true;// Reactivar el movimiento del jugador
+                    GameControl.players[1].playerMovement.moveAllowed = true;// Reactivar el movimiento del jugador
                     GameControl.inJail = false;
                 }
                 else
@@ -100,7 +100,7 @@ public class RollDices : MonoBehaviour
                 if (GameControl.jailTurns[2] == 0)
                 {
                     UnityEngine.Debug.Log("Player 3 is out of jail!");
-                    GameControl.players[2].GetComponent<PlayerMove>().moveAllowed = true;// Reactivar el movimiento del jugador
+                    GameControl.players[2].playerMovement.moveAllowed = true;// Reactivar el movimiento del jugador
                     GameControl.inJail = false;
                 }
                 else
@@ -128,7 +128,7 @@ public class RollDices : MonoBehaviour
                 if (GameControl.jailTurns[3] == 0)
                 {
                     UnityEngine.Debug.Log("Player 4 is out of jail!");
-                    GameControl.players[3].GetComponent<PlayerMove>().moveAllowed = true;// Reactivar el movimiento del jugador
+                    GameControl.players[3].playerMovement.moveAllowed = true;// Reactivar el movimiento del jugador
                     GameControl.inJail = false;
                 }
                 else
