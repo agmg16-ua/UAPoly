@@ -60,7 +60,7 @@ public class GameControl : MonoBehaviour
         // Verifica si cada jugador ha alcanzado su waypoint objetivo
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
-
+            
             if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 31)
             {
                 StartCoroutine(SendToJail(i));
@@ -87,9 +87,8 @@ public class GameControl : MonoBehaviour
                     UnityEngine.Debug.Log("Player " + (i + 1) + " has completed a lap");
 
                     // Añadir $200 a la cartera del jugador
-                    PlayerWallet playerWallet = players[i].GetComponent<PlayerWallet>();
-                    playerWallet.addMoney(200);
-                    UnityEngine.Debug.Log("Player " + (i + 1) + " received $200 for completing a lap. New balance: " + playerWallet.getWalletAmount());
+                    players[i].wallet.addMoney(200);
+                    UnityEngine.Debug.Log("Player " + (i + 1) + " received $200 for completing a lap. New balance: " + players[i].wallet.getWalletAmount());
                 }
             }
 
@@ -142,9 +141,8 @@ public class GameControl : MonoBehaviour
         if(restado[playerIndex]== false)
         {
             // Restar $100 de la cartera del jugador
-            PlayerWallet playerWallet = players[playerIndex].GetComponent<PlayerWallet>();
-            playerWallet.subtractMoney(100);
-            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " lost $100. New balance: $" + playerWallet.getWalletAmount());
+            players[playerIndex].wallet.subtractMoney(100);
+            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " lost $100. New balance: $" + players[playerIndex].wallet.getWalletAmount());
 
             // Agrega la cantidad del impuesto al bote
             bote += amount;
@@ -165,9 +163,8 @@ public class GameControl : MonoBehaviour
         if (restado[playerIndex] == false)
         {
             // Restar $100 de la cartera del jugador
-            PlayerWallet playerWallet = players[playerIndex].GetComponent<PlayerWallet>();
-            playerWallet.addMoney(bote);
-            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " won the pot! Added $" + bote + " to their wallet. New balance: $" + playerWallet.getWalletAmount());
+            players[playerIndex].wallet.addMoney(bote);
+            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " won the pot! Added $" + bote + " to their wallet. New balance: $" + players[playerIndex].wallet.getWalletAmount());
 
             // Reiniciar el bote
             bote = 0;

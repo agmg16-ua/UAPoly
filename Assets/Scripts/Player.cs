@@ -10,9 +10,10 @@ public class Player : MonoBehaviour
     public string nombre;
     public int money;
     public Personajes personaje;
-    
 
     public PlayerMove playerMovement;
+
+    public PlayerWallet wallet;
 
     void Start()
     {
