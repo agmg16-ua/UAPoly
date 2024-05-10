@@ -7,6 +7,7 @@ public class PlayerWallet : MonoBehaviour
 	public ArrayList myLandList;
 	public GameManager monopolyGame;
 	public bool isBankrupt;
+	public bool restado = false;
 
 
 	// Use this for initialization
@@ -20,13 +21,7 @@ public class PlayerWallet : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//~~@!!constantly check to see if you go backrupt, if at anypoint in debt, end game
-		if (myWallet < 0)
-		{
-			//print ("stop! stop! stop!");
-			isBankrupt = true;
-			monopolyGame.updateGameStatus(false);
-		}
+		
 	}
 
 	public void CollectPassingGoMoney()
@@ -53,7 +48,9 @@ public class PlayerWallet : MonoBehaviour
 
 	public void subtractMoney(int debt)
 	{
+
 		myWallet = myWallet - debt;
+		
 	}
 
 	public void addLand(ArrayList newLand)

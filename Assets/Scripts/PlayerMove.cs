@@ -16,7 +16,6 @@ public class PlayerMove : MonoBehaviour
 
     public bool moveAllowed = false;
 
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -26,51 +25,29 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(moveAllowed) {
+        if (moveAllowed)
+        {
             Move();
         }
     }
 
-    private void Move() {
-        if(waypointIndex <= waypoints.Length - 1) {
-            transform.position = Vector2.MoveTowards(transform.position, 
-                waypoints[waypointIndex].transform.position, 
+    private void Move()
+    {
+        if (waypointIndex <= waypoints.Length - 1)
+        {
+            transform.position = Vector2.MoveTowards(transform.position,
+                waypoints[waypointIndex].transform.position,
                 moveSpeed * Time.deltaTime);
 
-            if(transform.position == waypoints[waypointIndex].transform.position) {
+            if (transform.position == waypoints[waypointIndex].transform.position)
+            {
                 waypointIndex += 1;
             }
 
-            if((waypointIndex == waypoints.Length-1) && (otraVuelta == true) ) {
+            if ((waypointIndex == waypoints.Length - 1) && (otraVuelta == true))
+            {
                 waypointIndex = 0;
             }
         }
     }
-
-    public void InitializeWaypoints()
-    {
-        for (int i = 0; i < waypoints.Length; i++)
-        {
-            // Busca los GameObjects por nombre y obtén su componente Transform
-            if (i == 0)
-            {
-                waypoints[i] = GameObject.Find("Waypoint").transform;
-            }
-            else
-            {
-                waypoints[i] = GameObject.Find("Waypoint (" + i + ")").transform;
-            }
-        }
-        transform.position = waypoints[waypointIndex].transform.position;
-    }
-
-    ////cobrar 200 en salida
-    /*public void OnPassingGo()
-    {
-        // Obtén la instancia de PlayerWallet y aumenta el saldo en $200
-        PlayerWallet playerWallet = GetComponent<PlayerWallet>();
-        playerWallet.CollectPassingGoMoney();
-    }*/
-
-
 }
