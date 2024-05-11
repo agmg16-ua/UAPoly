@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
-    private GameManager gameManager;
+    public GameManager gameManager;
 
     // Referencias a los objetos de los jugadores
     public static Player[] players;
@@ -20,7 +20,7 @@ public class GameControl : MonoBehaviour
 
     // Booleano que indica si el juego ha terminado
     public static bool gameOver = false;
-    public static bool inJail = false;
+    public static bool[] inJail = new bool[4];
 
     public static bool[] restado = new bool[4];
     // Contador de turnos en la cárcel para cada jugador
@@ -36,6 +36,7 @@ public class GameControl : MonoBehaviour
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
             restado[i] = false;
+            inJail[i] = false;
             players[i] = gameManager.jugadores[i];
             playerStartWaypoint[i] = 0;
             players[i].playerMovement.moveAllowed = false;
@@ -128,7 +129,7 @@ public class GameControl : MonoBehaviour
 
         // Establece el contador de turnos en la cárcel a 3
         jailTurns[playerIndex] = 3;
-        inJail = true;
+        inJail[playerIndex] = true;
 
         // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
         // Espera tres turnos antes de reactivar el movimiento
