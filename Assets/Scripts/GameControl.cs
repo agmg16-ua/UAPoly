@@ -2,21 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    public GameManager gameManager;
+
     // Referencias a los objetos de los jugadores
-    public static GameObject[] players = new GameObject[4];
+    public static Player[] players;
 
-    // Índices de inicio de los waypoints para cada jugador
-    public static int[] playerStartWaypoint = new int[4];
+    // indices de inicio de los waypoints para cada jugador
+    public static int[] playerStartWaypoint;
 
-    // Número de caras del dado arrojado
+    // Numero de caras del dado arrojado
     public static int diceSideThrown = 0;
 
     // Booleano que indica si el juego ha terminado
     public static bool gameOver = false;
-    public static bool inJail = false;
+    public static bool[] inJail = new bool[4];
 
     public static bool[] restado = new bool[4];
     // Contador de turnos en la cárcel para cada jugador
@@ -26,13 +30,28 @@ public class GameControl : MonoBehaviour
     // Se llama al inicio del script
     void Start()
     {
-        // Encuentra los objetos de los jugadores y los almacena en un arreglo
-        for (int i = 0; i < 4; i++)
+        gameManager = GameManager.instance;
+        players = new Player[gameManager.jugadores.Count];
+        playerStartWaypoint = new int[gameManager.jugadores.Count];
+        for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
             restado[i] = false;
-            players[i] = GameObject.Find("Player" + (i + 1));
+            inJail[i] = false;
+            players[i] = gameManager.jugadores[i];
             playerStartWaypoint[i] = 0;
-            players[i].GetComponent<PlayerMove>().moveAllowed = false;
+            players[i].playerMovement.moveAllowed = false;
+            players[i].playerMovement.InitializeWaypoints();
+
+            // Añade un componente SpriteRenderer al GameObject del jugador
+            SpriteRenderer spriteRenderer = players[i].gameObject.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = players[i].personaje.imagen;
+
+            // Define el tamaño del sprite
+            float spriteSize = 1.0f; // Cambia esto al tamaño que desees
+            players[i].transform.localScale = new Vector3(spriteSize, spriteSize, 1);
+
+            // Asegúrate de que el GameObject está en una posición donde la cámara pueda verlo
+            players[i].transform.position = players[i].playerMovement.waypoints[0].position;
         }
     }
 
@@ -40,50 +59,47 @@ public class GameControl : MonoBehaviour
     void Update()
     {
         // Verifica si cada jugador ha alcanzado su waypoint objetivo
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
-
-            if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 31)
+            
+            if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 31)
             {
                 StartCoroutine(SendToJail(i));
             }
-            else if (((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 4) || ((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 38))
+            else if (((playerStartWaypoint[i]) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 4) || ((playerStartWaypoint[i]) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 38))
             {
                 StartCoroutine(restarImpuesto(i, 100));
                 
             }
-            else if ((playerStartWaypoint[i]) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 20)
+            else if ((playerStartWaypoint[i]) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 20)
             {
                 StartCoroutine(sumarBote(i));
             }
-            else if ((playerStartWaypoint[i]+1) + diceSideThrown > players[i].GetComponent<PlayerMove>().waypoints.Length - 1)
+            else if ((playerStartWaypoint[i]+1) + diceSideThrown > players[i].playerMovement.waypoints.Length - 1)
             {
-                int waypointsNextLap = diceSideThrown - (players[i].GetComponent<PlayerMove>().waypoints.Length - 1 - playerStartWaypoint[i]);
+                int waypointsNextLap = diceSideThrown - (players[i].playerMovement.waypoints.Length - 1 - playerStartWaypoint[i]);
 
-                players[i].GetComponent<PlayerMove>().otraVuelta = true;
+                players[i].playerMovement.otraVuelta = true;
 
-                if (players[i].GetComponent<PlayerMove>().waypointIndex == 0)
+                if (players[i].playerMovement.waypointIndex == 0)
                 {
                     playerStartWaypoint[i] = 0;
                     diceSideThrown = waypointsNextLap;
                     UnityEngine.Debug.Log("Player " + (i + 1) + " has completed a lap");
 
                     // Añadir $200 a la cartera del jugador
-                    PlayerWallet playerWallet = players[i].GetComponent<PlayerWallet>();
-                    playerWallet.addMoney(200);
-                    UnityEngine.Debug.Log("Player " + (i + 1) + " received $200 for completing a lap. New balance: " + playerWallet.getWalletAmount());
+                    players[i].wallet.addMoney(200);
+                    UnityEngine.Debug.Log("Player " + (i + 1) + " received $200 for completing a lap. New balance: " + players[i].wallet.getWalletAmount());
                 }
             }
 
-            //Debug.Log("Player " + (i + 1) + " is at waypoint " + players[i].GetComponent<PlayerMove>().waypointIndex);
-            else if (players[i].GetComponent<PlayerMove>().waypointIndex > playerStartWaypoint[i] + diceSideThrown)
-            {
-                players[i].GetComponent<PlayerMove>().moveAllowed = false;
-                players[i].GetComponent<PlayerMove>().otraVuelta = false;
-                playerStartWaypoint[i] = players[i].GetComponent<PlayerMove>().waypointIndex - 1;
+            //Debug.Log("Player " + (i + 1) + " is at waypoint " + players[i].playerMovement.waypointIndex);
+            if (players[i].playerMovement.waypointIndex > playerStartWaypoint[i] + diceSideThrown){
+                players[i].playerMovement.moveAllowed = false;
+                players[i].playerMovement.otraVuelta = false;
+                playerStartWaypoint[i] = players[i].playerMovement.waypointIndex - 1;
             }
-
-            else if (players[i].GetComponent<PlayerMove>().waypointIndex == players[i].GetComponent<PlayerMove>().waypoints.Length)
+            else if (players[i].playerMovement.waypointIndex == players[i].playerMovement.waypoints.Length)
             {
                 gameOver = true;
             }
@@ -93,8 +109,8 @@ public class GameControl : MonoBehaviour
     // Método estático para mover al jugador especificado
     public static void MovePlayer(int playerToMove)
     {
-        players[playerToMove - 1].GetComponent<PlayerMove>().moveAllowed = true;
-        if (players[playerToMove - 1].GetComponent<PlayerMove>().waypointIndex == 20)
+        players[playerToMove - 1].playerMovement.moveAllowed = true;
+        if (players[playerToMove - 1].playerMovement.waypointIndex == 20)
         {
             bote = 10;
         }
@@ -106,14 +122,14 @@ public class GameControl : MonoBehaviour
         UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " is in jail!");
         // Mueve al jugador a la casilla 10
         playerStartWaypoint[playerIndex] = 10;
-        players[playerIndex].GetComponent<PlayerMove>().waypointIndex = 10;
+        players[playerIndex].playerMovement.waypointIndex = 10;
 
         // Desactiva el movimiento del jugador
-        players[playerIndex].GetComponent<PlayerMove>().moveAllowed = false;
+        players[playerIndex].playerMovement.moveAllowed = false;
 
         // Establece el contador de turnos en la cárcel a 3
         jailTurns[playerIndex] = 3;
-        inJail = true;
+        inJail[playerIndex] = true;
 
         // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
         // Espera tres turnos antes de reactivar el movimiento
@@ -126,9 +142,8 @@ public class GameControl : MonoBehaviour
         if(restado[playerIndex]== false)
         {
             // Restar $100 de la cartera del jugador
-            PlayerWallet playerWallet = players[playerIndex].GetComponent<PlayerWallet>();
-            playerWallet.subtractMoney(100);
-            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " lost $100. New balance: $" + playerWallet.getWalletAmount());
+            players[playerIndex].wallet.subtractMoney(100);
+            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " lost $100. New balance: $" + players[playerIndex].wallet.getWalletAmount());
 
             // Agrega la cantidad del impuesto al bote
             bote += amount;
@@ -149,9 +164,8 @@ public class GameControl : MonoBehaviour
         if (restado[playerIndex] == false)
         {
             // Restar $100 de la cartera del jugador
-            PlayerWallet playerWallet = players[playerIndex].GetComponent<PlayerWallet>();
-            playerWallet.addMoney(bote);
-            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " won the pot! Added $" + bote + " to their wallet. New balance: $" + playerWallet.getWalletAmount());
+            players[playerIndex].wallet.addMoney(bote);
+            UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " won the pot! Added $" + bote + " to their wallet. New balance: $" + players[playerIndex].wallet.getWalletAmount());
 
             // Reiniciar el bote
             bote = 0;

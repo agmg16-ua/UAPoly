@@ -1,7 +1,8 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
-
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public static int numeroDeJugador = 0;
@@ -9,7 +10,10 @@ public class Player : MonoBehaviour
     public string nombre;
     public int money;
     public Personajes personaje;
-    
+
+    public PlayerMove playerMovement;
+
+    public PlayerWallet wallet;
 
     void Start()
     {

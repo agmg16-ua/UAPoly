@@ -81,6 +81,8 @@ public class MenuSeleccionPersonaje : MonoBehaviour
 
             GameObject jugadorObject = new GameObject("Jugador" + (jugador + 1));
             Player jugadorComponent = jugadorObject.AddComponent<Player>();
+            jugadorComponent.playerMovement = jugadorObject.AddComponent<PlayerMove>();
+            jugadorComponent.wallet = jugadorObject.AddComponent<PlayerWallet>();
             gameManager.jugadores.Add(jugadorComponent);
             gameManager.jugadores[jugador].nombre = "Jugador" + (jugador + 1);
             gameManager.jugadores[jugador].money = 1000;
@@ -94,6 +96,8 @@ public class MenuSeleccionPersonaje : MonoBehaviour
             gameManagerSeleccion.personajesSeleccionados[jugador] = index;
             GameObject jugadorObject = new GameObject("Jugador" + (jugador + 1));
             Player jugadorComponent = jugadorObject.AddComponent<Player>();
+            jugadorComponent.playerMovement = jugadorObject.AddComponent<PlayerMove>();
+            jugadorComponent.wallet = jugadorObject.AddComponent<PlayerWallet>();
             gameManager.jugadores.Add(jugadorComponent);
             gameManager.jugadores[jugador].nombre = "Jugador" + (jugador + 1);
             gameManager.jugadores[jugador].money = 1000;

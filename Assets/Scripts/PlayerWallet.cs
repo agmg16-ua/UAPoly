@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerWallet : MonoBehaviour
 {//this will store all the information a player has regarding money and properties
-	private int myWallet;
+	public int myWallet;
 	public ArrayList myLandList;
 	public GameManager monopolyGame;
 	public bool isBankrupt;
@@ -13,6 +13,7 @@ public class PlayerWallet : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		monopolyGame = GameManager.instance;
 		isBankrupt = false;
 		myWallet = 1500;
 		myLandList = new ArrayList();
