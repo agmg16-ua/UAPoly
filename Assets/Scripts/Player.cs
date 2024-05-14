@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     public static int numeroDeJugador = 0;
 
     public string nombre;
+
+    public int turnosRestantesCarcel;
+
+    public List<string> listaPropiedades;
     public int money;
     public Personajes personaje;
 
