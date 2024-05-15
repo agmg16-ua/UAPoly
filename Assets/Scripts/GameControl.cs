@@ -34,7 +34,7 @@ public class GameControl : MonoBehaviour
     {
         gameManager = GameManager.instance;
         cardDatabase = CardDatabase.instance;
-        
+
         players = new Player[gameManager.jugadores.Count];
         playerStartWaypoint = new int[gameManager.jugadores.Count];
         for (int i = 0; i < gameManager.jugadores.Count; i++)

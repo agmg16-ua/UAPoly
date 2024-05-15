@@ -8,8 +8,6 @@ public class CardDatabase : MonoBehaviour
     public static CardDatabase instance;
 
     //Secciones cartas jugando y no jugando
-    public bool jugando = false;
-
     public float[] pos_NonPlayingCard0 = {-306,165};
 
     public float[] pos_PlayingCard = {270,123};
@@ -46,12 +44,15 @@ public class CardDatabase : MonoBehaviour
     }
 
     public void updateCardList() {
+        cardList.Add(cardList[0]);
+        cardList.RemoveAt(0);
+        
         for(int i = 0; i < cardList.Count; i++){
-            if(i == 0){
+            if(cardList[i].player.playerMovement.moveAllowed){
                 cardList[i].pos_Card = pos_PlayingCard;
             }
             else{
-                cardList[i].pos_Card = [pos_NonPlayingCard0[0], pos_NonPlayingCard0[1] + (i-1) * posY_NextNonPlayingCard];
+                cardList[i].pos_Card = [pos_NonPlayingCard0[0], posY_NextNonPlayingCard[1] + (i-1) * posY_NextNonPlayingCard];
             }
         }
     }
