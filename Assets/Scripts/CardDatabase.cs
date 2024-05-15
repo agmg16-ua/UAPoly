@@ -31,8 +31,8 @@ public class CardDatabase : MonoBehaviour
                 cardList.Add(new Card(gameManager.jugadores[i], pos_PlayingCard));
             }
             else{
-                cardList.Add(new Card(gameManager.jugadores[i], 
-                    [pos_NonPlayingCard0[0], posY_NextNonPlayingCard[1] + (i-1) * posY_NextNonPlayingCard]));
+                float[] pos = new float[]{pos_NonPlayingCard0[0], pos_NonPlayingCard0[1] + (i-1) * posY_NextNonPlayingCard};
+                cardList.Add(new Card(gameManager.jugadores[i], pos));
             }
         }
 
@@ -52,7 +52,7 @@ public class CardDatabase : MonoBehaviour
                 cardList[i].pos_Card = pos_PlayingCard;
             }
             else{
-                cardList[i].pos_Card = [pos_NonPlayingCard0[0], posY_NextNonPlayingCard[1] + (i-1) * posY_NextNonPlayingCard];
+                cardList[i].pos_Card = new float[]{pos_NonPlayingCard0[0], pos_NonPlayingCard0[1] + (i-1) * posY_NextNonPlayingCard};
             }
         }
     }
