@@ -41,10 +41,8 @@ public class CardDatabase : MonoBehaviour
 
         GameObject canvas = new GameObject("CartasCanvas");
         Canvas cartasCanvas = canvas.AddComponent<Canvas>();
-        Canvas cartasCanvas = canvas.AddComponent<Canvas>();
 
         GameObject childGameObject = new GameObject("TarjetaPlayer");
-        childGameObject.transform.SetParent(canvas.transform, false);
         childGameObject.transform.SetParent(canvas.transform, false);
     }
 
