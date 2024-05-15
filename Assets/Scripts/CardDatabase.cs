@@ -45,4 +45,15 @@ public class CardDatabase : MonoBehaviour
         childGameObject.transform.SetParent(canvas.transform, false);
     }
 
+    public void updateCardList() {
+        for(int i = 0; i < cardList.Count; i++){
+            if(i == 0){
+                cardList[i].pos_Card = pos_PlayingCard;
+            }
+            else{
+                cardList[i].pos_Card = [pos_NonPlayingCard0[0], pos_NonPlayingCard0[1] + (i-1) * posY_NextNonPlayingCard];
+            }
+        }
+    }
+
 }
