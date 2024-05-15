@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    private CardDatabase cardDatabase;
+
     private GameManager gameManager;
 
     // Referencias a los objetos de los jugadores
@@ -31,6 +33,8 @@ public class GameControl : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.instance;
+        cardDatabase = CardDatabase.instance;
+        
         players = new Player[gameManager.jugadores.Count];
         playerStartWaypoint = new int[gameManager.jugadores.Count];
         for (int i = 0; i < gameManager.jugadores.Count; i++)
