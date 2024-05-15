@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class CardDatabase : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class CardDatabase : MonoBehaviour
         }
 
         GameObject canvas = new GameObject("CartasCanvas");
-        Canva cartasCanvas = canvas.AddComponent<Canvas>();
+        Canvas cartasCanvas = canvas.AddComponent<Canvas>();
 
         GameObject childGameObject = new GameObject("TarjetaPlayer");
         childGameObject.transform.SetParent(canvas.transform, false);
