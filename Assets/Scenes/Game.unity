@@ -612,6 +612,7 @@ GameObject:
   - component: {fileID: 39911613}
   - component: {fileID: 39911615}
   - component: {fileID: 39911614}
+  - component: {fileID: 39911616}
   m_Layer: 5
   m_Name: Contenido
   m_TagString: Untagged
@@ -680,6 +681,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39911612}
   m_CullTransparentMesh: 1
+--- !u!114 &39911616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39911612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42758a803634a2349a9680bd8a4b12df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: 
+  turnosRestantesCarcel: 0
+  listaPropiedades: []
+  money: 0
+  personaje: {fileID: 0}
+  playerMovement: {fileID: 0}
+  wallet: {fileID: 1432294747}
 --- !u!1 &45192956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1145,7 @@ GameObject:
   - component: {fileID: 95517069}
   - component: {fileID: 95517071}
   - component: {fileID: 95517070}
+  - component: {fileID: 95517072}
   m_Layer: 5
   m_Name: CifraDineroRestante
   m_TagString: Untagged
@@ -1248,6 +1269,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95517068}
   m_CullTransparentMesh: 1
+--- !u!114 &95517072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95517068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a481a58019531469c92677580558f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWallet: 0
+  monopolyGame: {fileID: 0}
+  isBankrupt: 0
+  restado: 0
 --- !u!1 &107947156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,6 +2036,8 @@ GameObject:
   - component: {fileID: 184499610}
   - component: {fileID: 184499612}
   - component: {fileID: 184499611}
+  - component: {fileID: 184499614}
+  - component: {fileID: 184499613}
   m_Layer: 5
   m_Name: CifraDineroRestante
   m_TagString: Untagged
@@ -2122,6 +2161,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184499609}
   m_CullTransparentMesh: 1
+--- !u!114 &184499613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184499609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a481a58019531469c92677580558f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWallet: 0
+  monopolyGame: {fileID: 0}
+  isBankrupt: 0
+  restado: 0
+--- !u!114 &184499614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184499609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a481a58019531469c92677580558f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWallet: 0
+  monopolyGame: {fileID: 0}
+  isBankrupt: 0
+  restado: 0
 --- !u!1 &213565433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,6 +2556,8 @@ RectTransform:
   m_Children:
   - {fileID: 24432024}
   - {fileID: 1471766113}
+  - {fileID: 555445189}
+  - {fileID: 2140039411}
   m_Father: {fileID: 2143573525}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3411,6 +3484,7 @@ GameObject:
   - component: {fileID: 434902251}
   - component: {fileID: 434902253}
   - component: {fileID: 434902252}
+  - component: {fileID: 434902254}
   m_Layer: 5
   m_Name: Contenido
   m_TagString: Untagged
@@ -3479,6 +3553,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434902250}
   m_CullTransparentMesh: 1
+--- !u!114 &434902254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434902250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42758a803634a2349a9680bd8a4b12df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: 
+  turnosRestantesCarcel: 0
+  listaPropiedades: []
+  money: 0
+  personaje: {fileID: 0}
+  playerMovement: {fileID: 0}
+  wallet: {fileID: 184499614}
 --- !u!1 &443265444
 GameObject:
   m_ObjectHideFlags: 0
@@ -4091,17 +4184,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555445188}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 716931719}
-  m_Father: {fileID: 1964325201}
+  m_Father: {fileID: 268221748}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -308.1194, y: -171.39087}
+  m_AnchoredPosition: {x: 1.1539917, y: -11.149536}
   m_SizeDelta: {x: 5, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &555445190
@@ -5660,6 +5753,7 @@ GameObject:
   - component: {fileID: 770634964}
   - component: {fileID: 770634966}
   - component: {fileID: 770634965}
+  - component: {fileID: 770634967}
   m_Layer: 5
   m_Name: TarjetaManoUA
   m_TagString: Untagged
@@ -5725,6 +5819,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770634963}
   m_CullTransparentMesh: 1
+--- !u!114 &770634967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770634963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7d682286601a9409e39cc4fa753025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 39911616}
+  playerMoneyText: {fileID: 1432294745}
+  pos_Card: []
+  scale: []
 --- !u!1 &772735634
 GameObject:
   m_ObjectHideFlags: 0
@@ -6288,6 +6398,7 @@ GameObject:
   - component: {fileID: 813678444}
   - component: {fileID: 813678446}
   - component: {fileID: 813678445}
+  - component: {fileID: 813678447}
   m_Layer: 5
   m_Name: TarjetaArdilla
   m_TagString: Untagged
@@ -6353,6 +6464,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813678443}
   m_CullTransparentMesh: 1
+--- !u!114 &813678447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813678443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7d682286601a9409e39cc4fa753025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 434902254}
+  playerMoneyText: {fileID: 184499611}
+  pos_Card: []
+  scale: []
 --- !u!1 &815610879
 GameObject:
   m_ObjectHideFlags: 0
@@ -9921,6 +10048,7 @@ GameObject:
   - component: {fileID: 1432294744}
   - component: {fileID: 1432294746}
   - component: {fileID: 1432294745}
+  - component: {fileID: 1432294747}
   m_Layer: 5
   m_Name: CifraDineroRestante
   m_TagString: Untagged
@@ -10044,6 +10172,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432294743}
   m_CullTransparentMesh: 1
+--- !u!114 &1432294747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432294743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a481a58019531469c92677580558f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWallet: 0
+  monopolyGame: {fileID: 0}
+  isBankrupt: 0
+  restado: 0
 --- !u!1 &1436185286
 GameObject:
   m_ObjectHideFlags: 0
@@ -12025,6 +12169,7 @@ GameObject:
   - component: {fileID: 1653824979}
   - component: {fileID: 1653824981}
   - component: {fileID: 1653824980}
+  - component: {fileID: 1653824982}
   m_Layer: 5
   m_Name: TarjetaChocobom
   m_TagString: Untagged
@@ -12090,6 +12235,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653824978}
   m_CullTransparentMesh: 1
+--- !u!114 &1653824982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653824978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7d682286601a9409e39cc4fa753025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2143573528}
+  playerMoneyText: {fileID: 95517070}
+  pos_Card: []
+  scale: []
 --- !u!1 &1662038014
 GameObject:
   m_ObjectHideFlags: 0
@@ -14273,7 +14434,6 @@ RectTransform:
   m_Children:
   - {fileID: 813678444}
   - {fileID: 1653824979}
-  - {fileID: 555445189}
   - {fileID: 770634964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15823,18 +15983,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140039410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 156722413}
   - {fileID: 1204355805}
-  m_Father: {fileID: 2143573525}
+  m_Father: {fileID: 268221748}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2.75}
+  m_AnchoredPosition: {x: 1.2100009, y: -5.4299994}
   m_SizeDelta: {x: 4.5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2140039412
@@ -15886,6 +16046,7 @@ GameObject:
   - component: {fileID: 2143573525}
   - component: {fileID: 2143573527}
   - component: {fileID: 2143573526}
+  - component: {fileID: 2143573528}
   m_Layer: 5
   m_Name: Contenido
   m_TagString: Untagged
@@ -15908,7 +16069,6 @@ RectTransform:
   - {fileID: 268221748}
   - {fileID: 794550891}
   - {fileID: 950215089}
-  - {fileID: 2140039411}
   m_Father: {fileID: 1653824979}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -15954,6 +16114,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143573524}
   m_CullTransparentMesh: 1
+--- !u!114 &2143573528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143573524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42758a803634a2349a9680bd8a4b12df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: 
+  turnosRestantesCarcel: 0
+  listaPropiedades: []
+  money: 0
+  personaje: {fileID: 0}
+  playerMovement: {fileID: 0}
+  wallet: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
