@@ -24,6 +24,10 @@ public class RollDices : MonoBehaviour
         num_jugadores = GameManager.instance.jugadores.Count;
     }
 
+    void Update() {
+        this.whosTurn = GameControl.whosTurn;
+    }
+
     // Update is called once per frame
     private void OnMouseDown()
     {
@@ -41,6 +45,7 @@ public class RollDices : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         GameControl.diceSideThrown = value;
         UnityEngine.Debug.Log("Suma dados " +value);
+        GameControl.players[whosTurn-1].haTirado = true;
 
 
         if (GameControl.jailTurns[whosTurn-1] > 0 && GameControl.inJail[whosTurn-1]) {
@@ -50,15 +55,15 @@ public class RollDices : MonoBehaviour
                 UnityEngine.Debug.Log("Player " + whosTurn + " is out of jail!");
                 GameControl.players[whosTurn-1].playerMovement.moveAllowed = true; // Reactivar el movimiento del jugador
                 GameControl.inJail[whosTurn-1] = false;
-                whosTurn = (whosTurn % num_jugadores) + 1;
+                //whosTurn = (whosTurn % num_jugadores) + 1;
             } else {
-                whosTurn = (whosTurn % num_jugadores) + 1;
+                //whosTurn = (whosTurn % num_jugadores) + 1;
             }   
         } 
         else {
             GameControl.MovePlayer(whosTurn);
             UnityEngine.Debug.Log("Player " + whosTurn);
-            whosTurn = (whosTurn % num_jugadores) + 1;
+            //whosTurn = (whosTurn % num_jugadores) + 1;
         }
         GameControl.restado[whosTurn-1] = false;
 

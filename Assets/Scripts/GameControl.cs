@@ -31,6 +31,10 @@ public class GameControl : MonoBehaviour
     public ManejoTarjetasCC manejoTarjetasCC;
 
     public static int bote = 10;
+
+    public static int whosTurn = 1;
+    public static int num_jugadores;
+
     // Se llama al inicio del script
     void Start()
     {
@@ -39,6 +43,7 @@ public class GameControl : MonoBehaviour
         playerStartWaypoint = new int[gameManager.jugadores.Count];
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
+            num_jugadores = gameManager.jugadores.Count;
             restado[i] = false;
             inJail[i] = false;
             players[i] = gameManager.jugadores[i];
@@ -222,5 +227,19 @@ public class GameControl : MonoBehaviour
         // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
         // Espera tres turnos antes de reactivar el movimiento
         yield return new WaitForSeconds(3 * Time.deltaTime * 60);
+    }
+
+    // Método para pasar al siguiente turno
+    public static void pasarTurno()
+    {
+        // Cambia el turno al siguiente jugador
+        if (players[whosTurn-1].haTirado) {
+            players[whosTurn-1].haTirado = false;
+            whosTurn = (whosTurn % num_jugadores) + 1;
+            UnityEngine.Debug.Log("Now it's Player " + whosTurn + "'s turn!");
+        }
+        else {
+            UnityEngine.Debug.Log("Player " + whosTurn + " must roll the dice first!");
+        }
     }
 }
