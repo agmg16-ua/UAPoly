@@ -68,7 +68,7 @@ public class GameControl : MonoBehaviour
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 37 || players[i].playerMovement.waypointIndex == 23 || players[i].playerMovement.waypointIndex == 8))
             {
                 // Selecciona una tarjeta de suerte aleatoria
-                yield return StartCoroutine(manejoTarjetasSuerte.selectRandomCard());
+                StartCoroutine(manejoTarjetasSuerte.selectRandomCard());
 
                 // Obtiene el valor de la tarjeta seleccionada
                 int cardIndex = manejoTarjetasSuerte.GetLastCardIndex();
@@ -90,7 +90,7 @@ public class GameControl : MonoBehaviour
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 3 || players[i].playerMovement.waypointIndex == 18 || players[i].playerMovement.waypointIndex == 34))
             {
                 // Selecciona una tarjeta de suerte aleatoria
-                yield return StartCoroutine(manejoTarjetasCC.selectRandomCard());
+                StartCoroutine(manejoTarjetasCC.selectRandomCard());
 
                 // Obtiene el valor de la tarjeta seleccionada
                 int cardIndex = manejoTarjetasCC.GetLastCardIndex();
