@@ -36,7 +36,7 @@ public class RollDices : MonoBehaviour
         Dado1.GetComponent<Dice>().moveDice();
         Dado2.GetComponent<Dice>().moveDice();
         yield return new WaitForSeconds(3.0f);
-        GameControl.diceSideThrown = 30;
+        GameControl.diceSideThrown = 17;
         UnityEngine.Debug.Log("Suma dados " +value);
 
         if (whosTurn == 1)
