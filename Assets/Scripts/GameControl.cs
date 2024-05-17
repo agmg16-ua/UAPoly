@@ -26,6 +26,10 @@ public class GameControl : MonoBehaviour
     // Contador de turnos en la cárcel para cada jugador
     public static int[] jailTurns = new int[4];
 
+    // Componente para las Tarjetas de Suerte/Comunidad
+    public ManejoTarjetasSuerte manejoTarjetasSuerte;
+    public ManejoTarjetasCC manejoTarjetasCC;
+
     public static int bote = 10;
     // Se llama al inicio del script
     void Start()
@@ -61,7 +65,50 @@ public class GameControl : MonoBehaviour
         // Verifica si cada jugador ha alcanzado su waypoint objetivo
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
-            
+            if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 37 || players[i].playerMovement.waypointIndex == 23 || players[i].playerMovement.waypointIndex == 8))
+            {
+                // Selecciona una tarjeta de suerte aleatoria
+                StartCoroutine(manejoTarjetasSuerte.selectRandomCard());
+
+                // Obtiene el valor de la tarjeta seleccionada
+                int cardIndex = manejoTarjetasSuerte.GetLastCardIndex();
+                int dinero = manejoTarjetasSuerte.GetLastCardMoney();
+                int casillas = manejoTarjetasSuerte.GetLastCardSpaces();
+
+                // Aplica los efectos de la tarjeta al jugador actual
+                if (dinero > 0)
+                {
+                    players[i].wallet.addMoney(dinero);
+                }
+                if (dinero < 0)
+                {
+                    players[i].wallet.subtractMoney(dinero);
+                }
+                players[i].playerMovement.waypointIndex += casillas;
+            }
+
+            if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 3 || players[i].playerMovement.waypointIndex == 18 || players[i].playerMovement.waypointIndex == 34))
+            {
+                // Selecciona una tarjeta de suerte aleatoria
+                StartCoroutine(manejoTarjetasCC.selectRandomCard());
+
+                // Obtiene el valor de la tarjeta seleccionada
+                int cardIndex = manejoTarjetasCC.GetLastCardIndex();
+                int dinero = manejoTarjetasCC.GetLastCardMoney();
+                int casillas = manejoTarjetasCC.GetLastCardSpaces();
+
+                // Aplica los efectos de la tarjeta al jugador actual
+                if (dinero > 0)
+                {
+                    players[i].wallet.addMoney(dinero);
+                }
+                if (dinero < 0)
+                {
+                    players[i].wallet.subtractMoney(dinero);
+                }
+                players[i].playerMovement.waypointIndex += casillas;
+            }
+
             if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 31)
             {
                 StartCoroutine(SendToJail(i));

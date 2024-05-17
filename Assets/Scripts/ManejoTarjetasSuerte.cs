@@ -1,33 +1,57 @@
 using System.Collections;
+using System.IO;
 using UnityEngine;
 
 public class ManejoTarjetasSuerte : MonoBehaviour {
 
-    // Array of dice sides sprites to load from Resources folder
-    private Sprite[] tarjetasSuerte;
+    // Array de tarjetas de suerte cargadas desde JSON
+    private TarjetaSuerte[] tarjetasSuerte;
 
     // Reference to sprite renderer to change sprites
     private SpriteRenderer rendTarjetas;
 
+    // Objeto TarjetasSuerte (Lee los datos del JSON).
+    public class TarjetaSuerte
+    {
+        public Sprite imagen;
+        public string imagenArchivo;
+        public int dinero;
+        public int casillas;
+    }
+    // Variables para almacenar el valor de la última tarjeta seleccionada
+    private int lastCardIndex;
+    private int lastCardMoney;
+    private int lastCardSpaces;
+
+
     // Use this for initialization
     private void Start() {
 
-        // Assign Renderer component
+        // Asigna componente Renderer
         rendTarjetas = GetComponent<SpriteRenderer>();
 
-        // Load dice sides sprites to array from DiceSides subfolder of Resources folder
-        tarjetasSuerte = Resources.LoadAll<Sprite>("TarjetasSuerte/");
+        // Cargar el archivo JSON desde la carpeta Resources
+        TextAsset jsonFile = Resources.Load<TextAsset>("suerte");
 
-        //rendTarjetas.sprite = tarjetasSuerte[0];
-    }
+        // Leer el archivo JSON
+        string json = jsonFile.text;
 
-    // If you left click over the dice then RollTheDice coroutine is started
-    public void OnMouseDown() {
-        StartCoroutine("selectRandomCard");
+        // Deserializar el JSON en un array de objetos TarjetaSuerte
+        tarjetasSuerte = JsonUtility.FromJson<TarjetaSuerte[]>(json);
+
+        // Cargar las imágenes de las tarjetas de suerte
+        foreach (TarjetaSuerte tarjeta in tarjetasSuerte)
+        {
+            // Construir la ruta de la imagen
+            string imagePath = "TarjetasSuerte/" + tarjeta.imagenArchivo;
+
+            // Cargar la imagen desde la carpeta Resources
+            tarjeta.imagen = Resources.Load<Sprite>(imagePath);
+        }
     }
 
     // Coroutine that rolls the dice
-    private IEnumerator selectRandomCard() {
+    public IEnumerator selectRandomCard() {
 
         // Variable to contain random dice side number.
         // It needs to be assigned. Let it be 0 initially
@@ -43,7 +67,7 @@ public class ManejoTarjetasSuerte : MonoBehaviour {
             randomCard = Random.Range(1, 21);
 
             // Set sprite to upper face of dice from array according to random value
-            rendTarjetas.sprite = tarjetasSuerte[randomCard];
+            rendTarjetas.sprite = tarjetasSuerte[randomCard].imagen;
 
             // Pause before next itteration
             yield return new WaitForSeconds(0.05f);
@@ -53,7 +77,30 @@ public class ManejoTarjetasSuerte : MonoBehaviour {
         // for player movement for example
         finalCard = randomCard;
 
+        // Guarda la última carta seleccionada
+        lastCardIndex = finalCard;
+        lastCardMoney = tarjetasSuerte[finalCard].dinero;
+        lastCardSpaces = tarjetasSuerte[finalCard].casillas;
+
         // Show final dice value in Console
         Debug.Log(finalCard);
+    }
+
+    // Getter for the index of the last card selected
+    public int GetLastCardIndex()
+    {
+        return lastCardIndex;
+    }
+
+    // Getter for the money value of the last card selected
+    public int GetLastCardMoney()
+    {
+        return lastCardMoney;
+    }
+
+    // Getter for the number of spaces to move of the last card selected
+    public int GetLastCardSpaces()
+    {
+        return lastCardSpaces;
     }
 }
