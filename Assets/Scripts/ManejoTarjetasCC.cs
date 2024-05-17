@@ -20,6 +20,7 @@ public class ManejoTarjetasCC : MonoBehaviour
         public int casillas;
     }
     // Variables para almacenar el valor de la última tarjeta seleccionada
+    private string lastCardName;
     private int lastCardIndex;
     private int lastCardMoney;
     private int lastCardSpaces;
@@ -83,11 +84,18 @@ public class ManejoTarjetasCC : MonoBehaviour
 
         // Guarda la última carta seleccionada
         lastCardIndex = finalCard;
+        lastCardName = tarjetasSuerte[finalCard].imagenArchivo;
         lastCardMoney = tarjetasSuerte[finalCard].dinero;
         lastCardSpaces = tarjetasSuerte[finalCard].casillas;
 
         // Show final dice value in Console
         Debug.Log(finalCard);
+    }
+
+    // Getter for the name of the last card selected
+    public string GetLastCardName()
+    {
+        return lastCardName;
     }
 
     // Getter for the index of the last card selected
