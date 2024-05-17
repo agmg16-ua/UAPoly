@@ -14,11 +14,18 @@ public class RollDices : MonoBehaviour
 
     private bool coroutineAllowed = true;
 
+    private int num_jugadores;
+
     // Start is called before the first frame update
     void Start()
     {
         Dado1 = GameObject.Find("Dado1");
         Dado2 = GameObject.Find("Dado2");
+        num_jugadores = GameManager.instance.jugadores.Count;
+    }
+
+    void Update() {
+        this.whosTurn = GameControl.whosTurn;
     }
 
     // Update is called once per frame
@@ -36,10 +43,35 @@ public class RollDices : MonoBehaviour
         Dado1.GetComponent<Dice>().moveDice();
         Dado2.GetComponent<Dice>().moveDice();
         yield return new WaitForSeconds(3.0f);
-        GameControl.diceSideThrown = 17;
+        GameControl.diceSideThrown = value;
         UnityEngine.Debug.Log("Suma dados " +value);
+        GameControl.players[whosTurn-1].haTirado = true;
 
-        if (whosTurn == 1)
+
+        if (GameControl.jailTurns[whosTurn-1] > 0 && GameControl.inJail[whosTurn-1]) {
+            GameControl.jailTurns[whosTurn-1]--;
+            UnityEngine.Debug.Log("Turnos Player " + whosTurn + " in jail!: " + (GameControl.jailTurns[whosTurn-1]));
+            if (GameControl.jailTurns[whosTurn-1] == 0) {
+                UnityEngine.Debug.Log("Player " + whosTurn + " is out of jail!");
+                GameControl.players[whosTurn-1].playerMovement.moveAllowed = true; // Reactivar el movimiento del jugador
+                GameControl.inJail[whosTurn-1] = false;
+                //whosTurn = (whosTurn % num_jugadores) + 1;
+            } else {
+                //whosTurn = (whosTurn % num_jugadores) + 1;
+            }   
+        } 
+        else {
+            GameControl.MovePlayer(whosTurn);
+            UnityEngine.Debug.Log("Player " + whosTurn);
+            //whosTurn = (whosTurn % num_jugadores) + 1;
+        }
+        GameControl.restado[whosTurn-1] = false;
+
+
+
+
+
+        /*if (whosTurn == 1)
         {
             if (GameControl.jailTurns[0] > 0 && GameControl.inJail[0])
             {
@@ -148,7 +180,7 @@ public class RollDices : MonoBehaviour
             }
             GameControl.restado[3] = false;
 
-        }
+        }*/
         coroutineAllowed = true;
     }
 }
