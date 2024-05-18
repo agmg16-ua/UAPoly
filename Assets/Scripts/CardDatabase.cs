@@ -9,11 +9,11 @@ public class CardDatabase : MonoBehaviour
     public static CardDatabase instance;
 
     //Secciones cartas jugando y no jugando
-    public static float[] pos_NonPlayingCard0 = {-33.3f,14.4f};
+    public static float[] pos_NonPlayingCard0 = {-13.5f,9.7f};
 
-    public static float[] pos_PlayingCard = {27.9f,11.3f};
+    public static float[] pos_PlayingCard = {15.9f,7.1f};
 
-    public static float posY_NextNonPlayingCard = -13.4f;
+    public static float posY_NextNonPlayingCard = -9.4f;
 
     //Lista de cartas
     private GameManager gameManager;  
@@ -54,7 +54,7 @@ public class CardDatabase : MonoBehaviour
         canvas.AddComponent<PasarTurno>();
         RectTransform rectTransformCanvas = canvas.GetComponent<RectTransform>();
         rectTransformCanvas.anchoredPosition = new Vector2(0,0);
-        rectTransformCanvas.localScale = new Vector3(1,1,1);
+        rectTransformCanvas.localScale = new Vector3(2,2,1);
         rectTransformCanvas.sizeDelta = new Vector2(88.3179f, 61.2888f);
         cartasCanvas.overrideSorting = true;
         cartasCanvas.sortingOrder = 1; // Ajusta este valor según tus necesidades
@@ -119,7 +119,7 @@ public class CardDatabase : MonoBehaviour
                         rectTransformPropiedadesCampo.anchoredPosition = new Vector2(0,0);
                         rectTransformPropiedadesCampo.localScale = new Vector3(1,1,1);
                         rectTransformPropiedadesCampo.sizeDelta = new Vector2(0.3f, 0.3f);
-                        propiedadesText.fontSize = 0.5f;
+                        propiedadesText.fontSize = 0.3f;
                         propiedadesText.color = Color.black;
 
                     GameObject campoDinero = new GameObject("CampoDinero");
@@ -136,8 +136,9 @@ public class CardDatabase : MonoBehaviour
                         rectTransformDineroRestante.anchoredPosition = new Vector2(-0.7f,-0.4f);
                         rectTransformDineroRestante.localScale = new Vector3(1,1,1);
                         rectTransformDineroRestante.sizeDelta = new Vector2(3, 1);
-                        dineroText.fontSize = 0.5f;
+                        dineroText.fontSize = 0.3f;
                         dineroText.color = Color.black;
+                        dineroText.text = "Dinero: ";
 
                         GameObject cifraDinero = new GameObject("CifraDinero");
                         cifraDinero.transform.SetParent(campoDinero.transform, false);
@@ -147,7 +148,7 @@ public class CardDatabase : MonoBehaviour
                         rectTransformCifraDinero.anchoredPosition = new Vector2(1.5f,-0.4f);
                         rectTransformCifraDinero.localScale = new Vector3(1,1,1);
                         rectTransformCifraDinero.sizeDelta = new Vector2(3, 1);
-                        cifraDineroTexto.fontSize = 0.5f;
+                        cifraDineroTexto.fontSize = 0.3f;
                         cifraDineroTexto.color = Color.black;
 
                     GameObject campoCarcel = new GameObject("CampoCarcel");
@@ -164,8 +165,9 @@ public class CardDatabase : MonoBehaviour
                         rectTransformCarcelRestantes.anchoredPosition = new Vector2(-0.2f,-0.2f);
                         rectTransformCarcelRestantes.localScale = new Vector3(1,1,1);
                         rectTransformCarcelRestantes.sizeDelta = new Vector2(4, 1);
-                        carcelText.fontSize = 0.5f;
+                        carcelText.fontSize = 0.3f;
                         carcelText.color = Color.black;
+                        carcelText.text = "Turnos restantes en carcel: ";
                         
                         GameObject cifraCarcel = new GameObject("CifraCarcel");
                         cifraCarcel.transform.SetParent(campoCarcel.transform, false);
@@ -174,8 +176,9 @@ public class CardDatabase : MonoBehaviour
                         rectTransformCifraCarcel.anchoredPosition = new Vector2(2.65f,-0.2f);
                         rectTransformCifraCarcel.localScale = new Vector3(1,1,1);
                         rectTransformCifraCarcel.sizeDelta = new Vector2(3, 1);
-                        cifraCarcelText.fontSize = 0.5f;
+                        cifraCarcelText.fontSize = 0.3f;
                         cifraCarcelText.color = Color.black;
+                        cifraCarcelText.text = "0";
         }
         updateCardList(0, true);
     }
