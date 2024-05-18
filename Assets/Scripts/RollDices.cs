@@ -14,11 +14,18 @@ public class RollDices : MonoBehaviour
 
     private bool coroutineAllowed = true;
 
+    private int num_jugadores;
+
     // Start is called before the first frame update
     void Start()
     {
         Dado1 = GameObject.Find("Dado1");
         Dado2 = GameObject.Find("Dado2");
+        num_jugadores = GameManager.instance.jugadores.Count;
+    }
+
+    void Update() {
+        this.whosTurn = GameControl.whosTurn;
     }
 
     // Update is called once per frame
@@ -38,10 +45,35 @@ public class RollDices : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         GameControl.diceSideThrown = value;
         UnityEngine.Debug.Log("Suma dados " +value);
+        GameControl.players[whosTurn-1].haTirado = true;
 
-        if (whosTurn == 1)
+
+        if (GameControl.jailTurns[whosTurn-1] > 0 && GameControl.inJail[whosTurn-1]) {
+            GameControl.jailTurns[whosTurn-1]--;
+            UnityEngine.Debug.Log("Turnos Player " + whosTurn + " in jail!: " + (GameControl.jailTurns[whosTurn-1]));
+            if (GameControl.jailTurns[whosTurn-1] == 0) {
+                UnityEngine.Debug.Log("Player " + whosTurn + " is out of jail!");
+                GameControl.players[whosTurn-1].playerMovement.moveAllowed = true; // Reactivar el movimiento del jugador
+                GameControl.inJail[whosTurn-1] = false;
+                //whosTurn = (whosTurn % num_jugadores) + 1;
+            } else {
+                //whosTurn = (whosTurn % num_jugadores) + 1;
+            }   
+        } 
+        else {
+            GameControl.MovePlayer(whosTurn);
+            UnityEngine.Debug.Log("Player " + whosTurn);
+            //whosTurn = (whosTurn % num_jugadores) + 1;
+        }
+        GameControl.restado[whosTurn-1] = false;
+
+
+
+
+
+        /*if (whosTurn == 1)
         {
-            if (GameControl.jailTurns[0] > 0 && GameControl.inJail)
+            if (GameControl.jailTurns[0] > 0 && GameControl.inJail[0])
             {
                 GameControl.jailTurns[0]--;
                 UnityEngine.Debug.Log("Turnos Player 1  in jail!: " + (GameControl.jailTurns[0]));
@@ -49,7 +81,8 @@ public class RollDices : MonoBehaviour
                 {
                     UnityEngine.Debug.Log("Player 1 is out of jail!");
                     GameControl.players[0].playerMovement.moveAllowed = true; // Reactivar el movimiento del jugador
-                    GameControl.inJail = false;
+                    GameControl.inJail[0] = false;
+                    whosTurn = 2;
                 }
                 else
                 {
@@ -67,7 +100,7 @@ public class RollDices : MonoBehaviour
         }
         else if (whosTurn == 2)
         {
-            if (GameControl.jailTurns[1] > 0 && GameControl.inJail)
+            if (GameControl.jailTurns[1] > 0 && GameControl.inJail[1])
             {
                 GameControl.jailTurns[1]--;
                 UnityEngine.Debug.Log("Turnos Player 2 in Jail!: " + (GameControl.jailTurns[1]));
@@ -75,7 +108,8 @@ public class RollDices : MonoBehaviour
                 {
                     UnityEngine.Debug.Log("Player 2 is out of jail!");
                     GameControl.players[1].playerMovement.moveAllowed = true;// Reactivar el movimiento del jugador
-                    GameControl.inJail = false;
+                    GameControl.inJail[1] = false;
+                    whosTurn = 3;
                 }
                 else
                 {
@@ -93,7 +127,7 @@ public class RollDices : MonoBehaviour
         }
         else if(whosTurn == 3)
         {
-            if (GameControl.jailTurns[2] > 0 && GameControl.inJail)
+            if (GameControl.jailTurns[2] > 0 && GameControl.inJail[2])
             {
                 GameControl.jailTurns[2]--;
                 UnityEngine.Debug.Log("Turnos Player 3 in Jail!: " + (GameControl.jailTurns[2]));
@@ -101,7 +135,8 @@ public class RollDices : MonoBehaviour
                 {
                     UnityEngine.Debug.Log("Player 3 is out of jail!");
                     GameControl.players[2].playerMovement.moveAllowed = true;// Reactivar el movimiento del jugador
-                    GameControl.inJail = false;
+                    GameControl.inJail[2] = false;
+                    whosTurn = 4;
                 }
                 else
                 {
@@ -121,7 +156,7 @@ public class RollDices : MonoBehaviour
         }
         else if( whosTurn == 4)
         {
-            if (GameControl.jailTurns[3] > 0 && GameControl.inJail)
+            if (GameControl.jailTurns[3] > 0 && GameControl.inJail[3])
             {
                 GameControl.jailTurns[3]--;
                 UnityEngine.Debug.Log("Turnos Player 4 in Jail!: " + (GameControl.jailTurns[3]));
@@ -129,7 +164,8 @@ public class RollDices : MonoBehaviour
                 {
                     UnityEngine.Debug.Log("Player 4 is out of jail!");
                     GameControl.players[3].playerMovement.moveAllowed = true;// Reactivar el movimiento del jugador
-                    GameControl.inJail = false;
+                    GameControl.inJail[3] = false;
+                    whosTurn = 1;
                 }
                 else
                 {
@@ -144,7 +180,7 @@ public class RollDices : MonoBehaviour
             }
             GameControl.restado[3] = false;
 
-        }
+        }*/
         coroutineAllowed = true;
     }
 }

@@ -24,13 +24,21 @@ public class GameControl : MonoBehaviour
 
     // Booleano que indica si el juego ha terminado
     public static bool gameOver = false;
-    public static bool inJail = false;
+    public static bool[] inJail = new bool[4];
 
     public static bool[] restado = new bool[4];
     // Contador de turnos en la cárcel para cada jugador
     public static int[] jailTurns = new int[4];
 
+    // Componente para las Tarjetas de Suerte/Comunidad
+    public ManejoTarjetasSuerte manejoTarjetasSuerte;
+    public ManejoTarjetasCC manejoTarjetasCC;
+
     public static int bote = 10;
+
+    public static int whosTurn = 1;
+    public static int num_jugadores;
+
     // Se llama al inicio del script
     void Start()
     {
@@ -42,7 +50,9 @@ public class GameControl : MonoBehaviour
         playerStartWaypoint = new int[gameManager.jugadores.Count];
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
+            num_jugadores = gameManager.jugadores.Count;
             restado[i] = false;
+            inJail[i] = false;
             players[i] = gameManager.jugadores[i];
             playerStartWaypoint[i] = 0;
             players[i].playerMovement.moveAllowed = false;
@@ -73,7 +83,70 @@ public class GameControl : MonoBehaviour
         // Verifica si cada jugador ha alcanzado su waypoint objetivo
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
-            
+            if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 37 || players[i].playerMovement.waypointIndex == 23 || players[i].playerMovement.waypointIndex == 8))
+            {
+                // Selecciona una tarjeta de suerte aleatoria
+                StartCoroutine(manejoTarjetasSuerte.selectRandomCard());
+
+                // Obtiene el valor de la tarjeta seleccionada
+                int cardIndex = manejoTarjetasSuerte.GetLastCardIndex();
+                int dinero = manejoTarjetasSuerte.GetLastCardMoney();
+                int casillas = manejoTarjetasSuerte.GetLastCardSpaces();
+
+                // Aplica los efectos de la tarjeta al jugador actual
+                if (dinero > 0)
+                {
+                    players[i].wallet.addMoney(dinero);
+                }
+                if (dinero < 0)
+                {
+                    players[i].wallet.subtractMoney(dinero);
+                }
+                if (casillas != 0)
+                {
+                    players[i].playerMovement.waypointIndex = casillas;
+                }
+            }
+
+            if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 3 || players[i].playerMovement.waypointIndex == 18 || players[i].playerMovement.waypointIndex == 34))
+            {
+                // Selecciona una tarjeta de suerte aleatoria
+                StartCoroutine(manejoTarjetasCC.selectRandomCard());
+
+                // Obtiene el valor de la tarjeta seleccionada
+                int cardIndex = manejoTarjetasCC.GetLastCardIndex();
+                int dinero = manejoTarjetasCC.GetLastCardMoney();
+                int casillas = manejoTarjetasCC.GetLastCardSpaces();
+                string name = manejoTarjetasCC.GetLastCardName();
+
+                // Aplica los efectos de la tarjeta al jugador actual
+                if (dinero > 0)
+                {
+                    players[i].wallet.addMoney(dinero);
+                }
+                if (dinero < 0)
+                {
+                    players[i].wallet.subtractMoney(dinero);
+                }
+
+                int destination = 0;
+
+                if (name == "CC23")
+                {
+                    int actual = players[i].playerMovement.waypointIndex;
+                    int distanceTo15 = (15 - actual + 40) % 40;
+                    int distanceTo36 = (36 - actual + 40) % 40;
+                    destination = (distanceTo15 < distanceTo36) ? 15 : 36;
+                } else
+                {
+                    destination = casillas;
+                }
+                if(destination != 0)
+                {
+                    players[i].playerMovement.waypointIndex = destination;
+                }
+            }
+
             if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 31)
             {
                 StartCoroutine(SendToJail(i));
@@ -141,7 +214,7 @@ public class GameControl : MonoBehaviour
 
         // Establece el contador de turnos en la cárcel a 3
         jailTurns[playerIndex] = 3;
-        inJail = true;
+        inJail[playerIndex] = true;
 
         // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
         // Espera tres turnos antes de reactivar el movimiento
@@ -187,5 +260,19 @@ public class GameControl : MonoBehaviour
         // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
         // Espera tres turnos antes de reactivar el movimiento
         yield return new WaitForSeconds(3 * Time.deltaTime * 60);
+    }
+
+    // Método para pasar al siguiente turno
+    public static void pasarTurno()
+    {
+        // Cambia el turno al siguiente jugador
+        if (players[whosTurn-1].haTirado) {
+            players[whosTurn-1].haTirado = false;
+            whosTurn = (whosTurn % num_jugadores) + 1;
+            UnityEngine.Debug.Log("Now it's Player " + whosTurn + "'s turn!");
+        }
+        else {
+            UnityEngine.Debug.Log("Player " + whosTurn + " must roll the dice first!");
+        }
     }
 }

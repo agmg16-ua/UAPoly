@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     public PlayerWallet wallet;
 
+    public bool haTirado = false;
+
     void Start()
     {
         // Marcar este objeto para no ser destruido al cargar una nueva escena
