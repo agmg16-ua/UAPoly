@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    private PodioController podio;
+
     private CardDatabase cardDatabase;
 
     private GameManager gameManager;
@@ -34,6 +36,7 @@ public class GameControl : MonoBehaviour
     {
         gameManager = GameManager.instance;
         cardDatabase = CardDatabase.instance;
+        podio = PodioController.instance;
 
         players = new Player[gameManager.jugadores.Count];
         playerStartWaypoint = new int[gameManager.jugadores.Count];
@@ -61,6 +64,12 @@ public class GameControl : MonoBehaviour
     // Se llama una vez por fotograma
     void Update()
     {
+        if(players[0].money == 0){
+            UnityEngine.Debug.Log("Voy a entrar en el gameOver");
+            podio.gameOverPlayer(players[0]);
+            UnityEngine.Debug.Log("YATA");
+        }
+
         // Verifica si cada jugador ha alcanzado su waypoint objetivo
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
