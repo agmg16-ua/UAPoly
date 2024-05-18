@@ -177,11 +177,14 @@ public class CardDatabase : MonoBehaviour
                         cifraCarcelText.fontSize = 0.5f;
                         cifraCarcelText.color = Color.black;
         }
+        updateCardList(0, true);
     }
 
-    public static void updateCardList(int whosTurn) {
-        cardList.Add(cardList[0]);
-        cardList.RemoveAt(0);
+    public static void updateCardList(int whosTurn, bool inicial) {
+        if(inicial == false){
+            cardList.Add(cardList[0]);
+            cardList.RemoveAt(0);
+        }
         
         for(int i = 0; i < cardList.Count; i++){
             if(i == 0){
