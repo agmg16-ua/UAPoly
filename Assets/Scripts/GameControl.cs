@@ -274,5 +274,7 @@ public class GameControl : MonoBehaviour
         else {
             UnityEngine.Debug.Log("Player " + whosTurn + " must roll the dice first!");
         }
+        
+        CardDatabase.updateCardList(whosTurn);
     }
 }

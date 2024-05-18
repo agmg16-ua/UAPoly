@@ -90,6 +90,7 @@ public class MenuSeleccionPersonaje : MonoBehaviour
 
             pepe.text = gameManager.jugadores[jugador].nombre;
             gameManager.jugadores[jugador].SetPersonaje(gameManager.personajes[index]);
+            gameManager.jugadores[jugador].transform.SetAsFirstSibling();
             SceneManager.LoadScene("Scenes/Game");
         }
         else{
@@ -104,6 +105,7 @@ public class MenuSeleccionPersonaje : MonoBehaviour
             gameManager.jugadores[jugador].personaje = gameManager.personajes[index];
             pepe.text = gameManager.jugadores[jugador].nombre;
             gameManager.jugadores[jugador].SetPersonaje(gameManager.personajes[index]);
+            gameManager.jugadores[jugador].transform.SetAsFirstSibling();
             jugador ++;
             BotonSiguiente();
         }

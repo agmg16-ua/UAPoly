@@ -33,7 +33,7 @@ public class PlayerWallet : MonoBehaviour
 
 	public int getWalletAmount()
 	{
-		print("Player has this much money: " + myWallet);
+		//print("Player has this much money: " + myWallet);
 		return myWallet;
 	}
 	public void setWalletAmount(int newBalance)

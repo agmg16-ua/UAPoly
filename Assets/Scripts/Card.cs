@@ -20,14 +20,14 @@ public class Card : MonoBehaviour
         UpdateCard();
     }
 
-    public Card(Player player, float[] pos_Card) {
+    public void Initialize(Player player, float[] pos_Card) {
         this.player = player;
         UpdateCard();
     }
 
     public void UpdateCard() {
         if (player != null) {
-            playerMoneyText.text = " " + player.wallet.getWalletAmount();
+            //playerMoneyText.text = " " + player.wallet.getWalletAmount();
         }
     }
 
