@@ -57,6 +57,7 @@ public class GameControl : MonoBehaviour
             playerStartWaypoint[i] = 0;
             players[i].playerMovement.moveAllowed = false;
             players[i].playerMovement.InitializeWaypoints();
+            players[i].turnosRestantesCarcel = 0;
 
             // Añade un componente SpriteRenderer al GameObject del jugador
             SpriteRenderer spriteRenderer = players[i].gameObject.AddComponent<SpriteRenderer>();
@@ -83,6 +84,7 @@ public class GameControl : MonoBehaviour
         // Verifica si cada jugador ha alcanzado su waypoint objetivo
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
+            players[i].turnosRestantesCarcel = jailTurns[i];
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 37 || players[i].playerMovement.waypointIndex == 23 || players[i].playerMovement.waypointIndex == 8))
             {
                 // Selecciona una tarjeta de suerte aleatoria
@@ -214,6 +216,7 @@ public class GameControl : MonoBehaviour
 
         // Establece el contador de turnos en la cárcel a 3
         jailTurns[playerIndex] = 3;
+        //players[playerIndex].turnosRestantesCarcel = 3;
         inJail[playerIndex] = true;
 
         // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
@@ -270,6 +273,12 @@ public class GameControl : MonoBehaviour
             players[whosTurn-1].haTirado = false;
             whosTurn = (whosTurn % num_jugadores) + 1;
             UnityEngine.Debug.Log("Now it's Player " + whosTurn + "'s turn!");
+
+            for (int i = 0; i < players.Length; i++) {
+                if (inJail[i]) {
+                    players[i].turnosRestantesCarcel--;
+                }
+            }
         }
         else {
             UnityEngine.Debug.Log("Player " + whosTurn + " must roll the dice first!");

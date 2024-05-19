@@ -127,17 +127,6 @@ public class CardDatabase : MonoBehaviour {
             rectTransformDinero.localScale = new Vector3(1, 1, 1);
             rectTransformDinero.sizeDelta = new Vector2(4.5f, 1);
 
-            /*GameObject dinero = new GameObject("Dinero");
-            dinero.transform.SetParent(campoDinero.transform, false);
-            TMPro.TextMeshProUGUI dineroText = dinero.AddComponent<TMPro.TextMeshProUGUI>();
-            RectTransform rectTransformDineroRestante = dinero.GetComponent<RectTransform>();
-            rectTransformDineroRestante.anchoredPosition = new Vector2(-0.7f, -0.4f);
-            rectTransformDineroRestante.localScale = new Vector3(1, 1, 1);
-            rectTransformDineroRestante.sizeDelta = new Vector2(3, 1);
-            dineroText.fontSize = 0.3f;
-            dineroText.color = Color.black;
-            dineroText.text = "Dinero: ";*/
-
             GameObject cifraDinero = new GameObject("CifraDinero");
             cifraDinero.transform.SetParent(campoDinero.transform, false);
             TMPro.TextMeshProUGUI cifraDineroTexto = cifraDinero.AddComponent<TMPro.TextMeshProUGUI>();
@@ -159,7 +148,7 @@ public class CardDatabase : MonoBehaviour {
             rectTransformCarcel.localScale = new Vector3(1, 1, 1);
             rectTransformCarcel.sizeDelta = new Vector2(4.5f, 1);
 
-            GameObject carcel = new GameObject("RestantesCarcel");
+            /*GameObject carcel = new GameObject("RestantesCarcel");
             carcel.transform.SetParent(campoCarcel.transform, false);
             TMPro.TextMeshProUGUI carcelText = carcel.AddComponent<TMPro.TextMeshProUGUI>();
             RectTransform rectTransformCarcelRestantes = carcel.GetComponent<RectTransform>();
@@ -168,18 +157,19 @@ public class CardDatabase : MonoBehaviour {
             rectTransformCarcelRestantes.sizeDelta = new Vector2(4, 1);
             carcelText.fontSize = 0.3f;
             carcelText.color = Color.black;
-            carcelText.text = "Turnos restantes en carcel: ";
+            carcelText.text = "Turnos restantes en carcel: ";*/
 
             GameObject cifraCarcel = new GameObject("CifraCarcel");
             cifraCarcel.transform.SetParent(campoCarcel.transform, false);
             TMPro.TextMeshProUGUI cifraCarcelText = cifraCarcel.AddComponent<TMPro.TextMeshProUGUI>();
             RectTransform rectTransformCifraCarcel = cifraCarcel.GetComponent<RectTransform>();
-            rectTransformCifraCarcel.anchoredPosition = new Vector2(2.65f, -0.2f);
+            rectTransformCifraCarcel.anchoredPosition = new Vector2(-0.2f, -0.2f);
             rectTransformCifraCarcel.localScale = new Vector3(1, 1, 1);
-            rectTransformCifraCarcel.sizeDelta = new Vector2(3, 1);
+            rectTransformCifraCarcel.sizeDelta = new Vector2(4, 1);
             cifraCarcelText.fontSize = 0.3f;
             cifraCarcelText.color = Color.black;
-            cifraCarcelText.text = "0";
+
+            card.playerCarcelText = cifraCarcelText;
         }
 
         updateCardList(0, true);
