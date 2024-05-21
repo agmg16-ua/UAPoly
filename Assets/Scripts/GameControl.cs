@@ -281,11 +281,12 @@ public class GameControl : MonoBehaviour
                     players[i].turnosRestantesCarcel--;
                 }
             }
+
+            CardDatabase.updateCardList(whosTurn-1,false);
         }
         else {
             UnityEngine.Debug.Log("Player " + whosTurn + " must roll the dice first!");
         }
         
-        CardDatabase.updateCardList(whosTurn-1,false);
     }
 }
