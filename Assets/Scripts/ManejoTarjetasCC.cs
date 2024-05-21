@@ -128,25 +128,4 @@ public class ManejoTarjetasCC : MonoBehaviour
         public T[] Items;
     }
 
-    public IEnumerator MovePlayerToPosition(Player player, int targetPosition, System.Action callback)
-    {
-        int currentPosition = player.playerMovement.waypointIndex;
-        int steps = Mathf.Abs(targetPosition - currentPosition); // Calcula la cantidad de pasos para llegar al destino
-
-        // Itera sobre los pasos necesarios para llegar al destino
-        for (int i = 0; i < steps; i++)
-        {
-            // Determina la dirección del movimiento (hacia adelante o hacia atrás)
-            int direction = (int)Mathf.Sign(targetPosition - currentPosition);
-
-            // Actualiza la posición del jugador
-            player.playerMovement.waypointIndex += direction;
-
-            // Espera un breve periodo de tiempo antes de mover al siguiente waypoint
-            yield return new WaitForSeconds(0.5f);
-        }
-
-        // Una vez que el jugador llega al destino, invoca el callback
-        callback?.Invoke();
-    }
 }

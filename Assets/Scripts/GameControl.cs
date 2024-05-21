@@ -108,7 +108,7 @@ public class GameControl : MonoBehaviour
                     }
                     if (casillas != 0)
                     {
-                        StartCoroutine(manejoTarjetasSuerte.MovePlayerToPosition(players[i], casillas, () =>
+                        StartCoroutine(MovePlayerToPosition(players[i], casillas, () =>
                         {
                             UnityEngine.Debug.Log("Player moved to position: " + casillas);
                         }));
@@ -152,7 +152,10 @@ public class GameControl : MonoBehaviour
 
                     if(destination != 0)
                     {
-                        players[i].playerMovement.waypointIndex = destination;
+                        StartCoroutine(MovePlayerToPosition(players[i], casillas, () =>
+                        {
+                            UnityEngine.Debug.Log("Player moved to position: " + casillas);
+                        }));
                     }
                 }));
             }
@@ -295,4 +298,27 @@ public class GameControl : MonoBehaviour
         }
         
     }
+
+    public IEnumerator MovePlayerToPosition(Player player, int targetPosition, System.Action callback)
+    {
+        if (targetPosition >= 0 && targetPosition < player.playerMovement.waypoints.Length)
+        {
+            // Llama al método InitializeWaypoints() del componente PlayerMove para asegurarte de que los waypoints estén inicializados correctamente.
+            player.playerMovement.InitializeWaypoints();
+
+            // Mueve al jugador al objetivo utilizando el método Move() del componente PlayerMove.
+            player.playerMovement.waypointIndex = targetPosition;
+
+            // Espera un breve período de tiempo antes de invocar el callback.
+            yield return new WaitForSeconds(0.5f);
+
+            // Una vez que el jugador llega al destino, invoca el callback.
+            callback?.Invoke();
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("targetPosition está fuera de los límites del array player.playerMovement.waypoints.");
+        }
+    }
+
 }
