@@ -81,6 +81,8 @@ public class MenuSeleccionPersonaje : MonoBehaviour
 
             GameObject jugadorObject = new GameObject("Jugador" + (jugador + 1));
             Player jugadorComponent = jugadorObject.AddComponent<Player>();
+            jugadorComponent.playerMovement = jugadorObject.AddComponent<PlayerMove>();
+            jugadorComponent.wallet = jugadorObject.AddComponent<PlayerWallet>();
             gameManager.jugadores.Add(jugadorComponent);
             gameManager.jugadores[jugador].nombre = "Jugador" + (jugador + 1);
             gameManager.jugadores[jugador].money = 1000;
@@ -88,18 +90,22 @@ public class MenuSeleccionPersonaje : MonoBehaviour
 
             pepe.text = gameManager.jugadores[jugador].nombre;
             gameManager.jugadores[jugador].SetPersonaje(gameManager.personajes[index]);
+            gameManager.jugadores[jugador].transform.SetAsFirstSibling();
             SceneManager.LoadScene("Scenes/Game");
         }
         else{
             gameManagerSeleccion.personajesSeleccionados[jugador] = index;
             GameObject jugadorObject = new GameObject("Jugador" + (jugador + 1));
             Player jugadorComponent = jugadorObject.AddComponent<Player>();
+            jugadorComponent.playerMovement = jugadorObject.AddComponent<PlayerMove>();
+            jugadorComponent.wallet = jugadorObject.AddComponent<PlayerWallet>();
             gameManager.jugadores.Add(jugadorComponent);
             gameManager.jugadores[jugador].nombre = "Jugador" + (jugador + 1);
             gameManager.jugadores[jugador].money = 1000;
             gameManager.jugadores[jugador].personaje = gameManager.personajes[index];
             pepe.text = gameManager.jugadores[jugador].nombre;
             gameManager.jugadores[jugador].SetPersonaje(gameManager.personajes[index]);
+            gameManager.jugadores[jugador].transform.SetAsFirstSibling();
             jugador ++;
             BotonSiguiente();
         }

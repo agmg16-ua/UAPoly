@@ -1,0 +1,72 @@
+[
+  {
+    "imagen": "CHANCE01",
+    "dinero": 50,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE02",
+    "dinero": 200,
+    "casillas": 1
+  },
+  {
+    "imagen": "CHANCE05",
+    "dinero": 0,
+    "casillas": 20
+  },
+  {
+    "imagen": "CHANCE07",
+    "dinero": 100,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE08",
+    "dinero": 200,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE10",
+    "dinero": 50,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE11",
+    "dinero": 100,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE12",
+    "dinero": 1000,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE13",
+    "dinero": 50,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE14",
+    "dinero": 0,
+    "casillas": 33
+  },
+  {
+    "imagen": "CHANCE15",
+    "dinero": 100,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE18",
+    "dinero": 100,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE20",
+    "dinero": 150,
+    "casillas": 0
+  },
+  {
+    "imagen": "CHANCE21",
+    "dinero": 0,
+    "casillas": 31
+  }
+]

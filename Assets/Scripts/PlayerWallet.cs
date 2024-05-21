@@ -3,15 +3,17 @@ using System.Collections;
 
 public class PlayerWallet : MonoBehaviour
 {//this will store all the information a player has regarding money and properties
-	private int myWallet;
+	public int myWallet;
 	public ArrayList myLandList;
 	public GameManager monopolyGame;
 	public bool isBankrupt;
+	public bool restado = false;
 
 
 	// Use this for initialization
 	void Start()
 	{
+		monopolyGame = GameManager.instance;
 		isBankrupt = false;
 		myWallet = 1500;
 		myLandList = new ArrayList();
@@ -20,13 +22,7 @@ public class PlayerWallet : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//~~@!!constantly check to see if you go backrupt, if at anypoint in debt, end game
-		if (myWallet < 0)
-		{
-			//print ("stop! stop! stop!");
-			isBankrupt = true;
-			monopolyGame.updateGameStatus(false);
-		}
+		
 	}
 
 	public void CollectPassingGoMoney()
@@ -37,7 +33,7 @@ public class PlayerWallet : MonoBehaviour
 
 	public int getWalletAmount()
 	{
-		print("Player has this much money: " + myWallet);
+		//print("Player has this much money: " + myWallet);
 		return myWallet;
 	}
 	public void setWalletAmount(int newBalance)
@@ -53,7 +49,9 @@ public class PlayerWallet : MonoBehaviour
 
 	public void subtractMoney(int debt)
 	{
+
 		myWallet = myWallet - debt;
+		
 	}
 
 	public void addLand(ArrayList newLand)

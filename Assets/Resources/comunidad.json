@@ -1,0 +1,107 @@
+[
+  {
+    "imagen": "CC02",
+    "dinero": -100,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC03",
+    "dinero": -50,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC04",
+    "dinero": -50,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC05",
+    "dinero": 50,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC06",
+    "dinero": 200,
+    "casillas": 1
+  },
+  {
+    "imagen": "CC07",
+    "dinero": -200,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC08",
+    "dinero": 100,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC09",
+    "dinero": -50,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC10",
+    "dinero": -25,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC11",
+    "dinero": 0,
+    "casillas": 30
+  },
+  {
+    "imagen": "CC12",
+    "dinero": 0,
+    "casillas": -1
+  },
+  {
+    "imagen": "CC13",
+    "dinero": 150,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC14",
+    "dinero": -75,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC15",
+    "dinero": -1000,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC16",
+    "dinero": 100,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC18",
+    "dinero": -25,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC19",
+    "dinero": 0,
+    "casillas": 30
+  },
+  {
+    "imagen": "CC20",
+    "dinero": -100,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC21",
+    "dinero": -50,
+    "casillas": 0
+  },
+  {
+    "imagen": "CC22",
+    "dinero": 0,
+    "casillas": 32
+  },
+  {
+    "imagen": "CC23",
+    "dinero": 25,
+    "casillas": 0
+  }
+]
