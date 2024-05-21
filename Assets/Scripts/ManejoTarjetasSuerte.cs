@@ -71,7 +71,7 @@ public class ManejoTarjetasSuerte : MonoBehaviour
     }
 
     // Coroutine that selects a random card
-    public IEnumerator selectRandomCard(System.Action callback)
+    public IEnumerator selectRandomCard()
     {
         // Lógica para seleccionar una tarjeta aleatoria
         yield return new WaitForSeconds(1); // Simulación de espera
@@ -86,9 +86,6 @@ public class ManejoTarjetasSuerte : MonoBehaviour
 
         // Actualiza el sprite render con la imagen de la tarjeta seleccionada
         rendTarjetas.sprite = selectedCard.imagenSprite;
-
-        // Ejecuta el callback
-        callback?.Invoke();
     }
 
     // Métodos para obtener los valores de la última tarjeta seleccionada

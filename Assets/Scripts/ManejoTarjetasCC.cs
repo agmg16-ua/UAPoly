@@ -93,7 +93,7 @@ public class ManejoTarjetasCC : MonoBehaviour
     }
 
     // Corrutina para seleccionar una tarjeta de suerte aleatoria y ejecutar un callback
-    public IEnumerator selectRandomCard(System.Action callback)
+    public IEnumerator selectRandomCard()
     {
         // Lógica para seleccionar una tarjeta aleatoria
         yield return new WaitForSeconds(1); // Simulación de espera
@@ -109,9 +109,6 @@ public class ManejoTarjetasCC : MonoBehaviour
 
         // Actualiza el sprite render con la imagen de la tarjeta seleccionada
         rendTarjetas.sprite = selectedCard.imagenSprite;
-
-        // Ejecuta el callback
-        callback?.Invoke();
     }
 
     // Método auxiliar para deserializar arrays de JSON

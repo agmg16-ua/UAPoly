@@ -91,73 +91,64 @@ public class GameControl : MonoBehaviour
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 37 || players[i].playerMovement.waypointIndex == 23 || players[i].playerMovement.waypointIndex == 8))
             {
                 // Selecciona una tarjeta de suerte aleatoria y espera a que termine
-                StartCoroutine(manejoTarjetasSuerte.selectRandomCard(() =>
-                {
-                    // Obtiene el valor de la tarjeta seleccionada
-                    int dinero = manejoTarjetasSuerte.GetLastCardMoney();
-                    int casillas = manejoTarjetasSuerte.GetLastCardSpaces();
+                StartCoroutine(manejoTarjetasSuerte.selectRandomCard());
 
-                    // Aplica los efectos de la tarjeta al jugador actual
-                    if (dinero > 0)
-                    {
-                        players[i].wallet.addMoney(dinero);
-                    }
-                    if (dinero < 0)
-                    {
-                        players[i].wallet.subtractMoney(dinero);
-                    }
-                    if (casillas != 0)
-                    {
-                        StartCoroutine(MovePlayerToPosition(players[i], casillas, () =>
-                        {
-                            UnityEngine.Debug.Log("Player moved to position: " + casillas);
-                        }));
-                    }
-                }));
+                // Obtiene el valor de la tarjeta seleccionada
+                int dinero = manejoTarjetasSuerte.GetLastCardMoney();
+                int casillas = manejoTarjetasSuerte.GetLastCardSpaces();
+
+                // Aplica los efectos de la tarjeta al jugador actual
+                if (dinero > 0)
+                {
+                    players[i].wallet.addMoney(dinero);
+                }
+                if (dinero < 0)
+                {
+                    players[i].wallet.subtractMoney(dinero);
+                }
+                if (casillas != 0)
+                {
+                    StartCoroutine(MovePlayerToPosition(i, casillas));
+                }
             }
 
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 3 || players[i].playerMovement.waypointIndex == 18 || players[i].playerMovement.waypointIndex == 34))
             {
                 // Selecciona una tarjeta de suerte aleatoria
-                StartCoroutine(manejoTarjetasCC.selectRandomCard(() =>
+                StartCoroutine(manejoTarjetasCC.selectRandomCard());
+
+                // Obtiene el valor de la tarjeta seleccionada
+                int dinero = manejoTarjetasCC.GetLastCardMoney();
+                int casillas = manejoTarjetasCC.GetLastCardSpaces();
+                string name = manejoTarjetasCC.GetLastCardName();
+
+                // Aplica los efectos de la tarjeta al jugador actual
+                if (dinero > 0)
                 {
+                    players[i].wallet.addMoney(dinero);
+                }
+                if (dinero < 0)
+                {
+                    players[i].wallet.subtractMoney(dinero);
+                }
 
-                    // Obtiene el valor de la tarjeta seleccionada
-                    int dinero = manejoTarjetasCC.GetLastCardMoney();
-                    int casillas = manejoTarjetasCC.GetLastCardSpaces();
-                    string name = manejoTarjetasCC.GetLastCardName();
+                int destination = 0;
 
-                    // Aplica los efectos de la tarjeta al jugador actual
-                    if (dinero > 0)
-                    {
-                        players[i].wallet.addMoney(dinero);
-                    }
-                    if (dinero < 0)
-                    {
-                        players[i].wallet.subtractMoney(dinero);
-                    }
+                if (name == "CC23")
+                {
+                    int actual = players[i].playerMovement.waypointIndex;
+                    int distanceTo15 = (15 - actual + 40) % 40;
+                    int distanceTo36 = (36 - actual + 40) % 40;
+                    destination = (distanceTo15 < distanceTo36) ? 15 : 36;
+                } else
+                {
+                    destination = casillas;
+                }
 
-                    int destination = 0;
-
-                    if (name == "CC23")
-                    {
-                        int actual = players[i].playerMovement.waypointIndex;
-                        int distanceTo15 = (15 - actual + 40) % 40;
-                        int distanceTo36 = (36 - actual + 40) % 40;
-                        destination = (distanceTo15 < distanceTo36) ? 15 : 36;
-                    } else
-                    {
-                        destination = casillas;
-                    }
-
-                    if(destination != 0)
-                    {
-                        StartCoroutine(MovePlayerToPosition(players[i], casillas, () =>
-                        {
-                            UnityEngine.Debug.Log("Player moved to position: " + casillas);
-                        }));
-                    }
-                }));
+                if(destination != 0)
+                {
+                    StartCoroutine(MovePlayerToPosition(i, casillas));
+                }
             }
 
             if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 31)
@@ -299,26 +290,20 @@ public class GameControl : MonoBehaviour
         
     }
 
-    public IEnumerator MovePlayerToPosition(Player player, int targetPosition, System.Action callback)
+    // Método para enviar al jugador a la cárcel
+    private IEnumerator MovePlayerToPosition(int playerIndex, int position)
     {
-        if (targetPosition >= 0 && targetPosition < player.playerMovement.waypoints.Length)
-        {
-            // Llama al método InitializeWaypoints() del componente PlayerMove para asegurarte de que los waypoints estén inicializados correctamente.
-            player.playerMovement.InitializeWaypoints();
+        UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " is moving to new position...");
+        // Mueve al jugador a la casilla de la tarjeta de evento.
+        playerStartWaypoint[playerIndex] = position;
+        players[playerIndex].playerMovement.waypointIndex = position;
 
-            // Mueve al jugador al objetivo utilizando el método Move() del componente PlayerMove.
-            player.playerMovement.waypointIndex = targetPosition;
+        // Desactiva el movimiento del jugador
+        players[playerIndex].playerMovement.moveAllowed = false;
 
-            // Espera un breve período de tiempo antes de invocar el callback.
-            yield return new WaitForSeconds(0.5f);
-
-            // Una vez que el jugador llega al destino, invoca el callback.
-            callback?.Invoke();
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("targetPosition está fuera de los límites del array player.playerMovement.waypoints.");
-        }
+        // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
+        // Espera tres turnos antes de reactivar el movimiento
+        yield return new WaitForSeconds(3 * Time.deltaTime * 60);
     }
 
 }
