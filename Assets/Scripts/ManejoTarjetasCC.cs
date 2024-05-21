@@ -42,7 +42,7 @@ public class ManejoTarjetasCC : MonoBehaviour
             string json = jsonFile.text;
 
             // Deserializar el JSON en un array de objetos TarjetaSuerte
-            tarjetasSuerte = JsonUtility.FromJson<TarjetaSuerteArray>(json).tarjetas;
+            tarjetasSuerte = FromJson<TarjetaSuerte>(json);
 
             // Cargar las imágenes de las tarjetas de suerte
             foreach (TarjetaSuerte tarjeta in tarjetasSuerte)
@@ -92,8 +92,8 @@ public class ManejoTarjetasCC : MonoBehaviour
         return lastCardName;
     }
 
-    // Simulación de selección aleatoria de tarjeta
-    public IEnumerator selectRandomCard()
+    // Corrutina para seleccionar una tarjeta de suerte aleatoria y ejecutar un callback
+    public IEnumerator selectRandomCard(System.Action callback)
     {
         // Lógica para seleccionar una tarjeta aleatoria
         yield return new WaitForSeconds(1); // Simulación de espera
@@ -109,11 +109,44 @@ public class ManejoTarjetasCC : MonoBehaviour
 
         // Actualiza el sprite render con la imagen de la tarjeta seleccionada
         rendTarjetas.sprite = selectedCard.imagenSprite;
+
+        // Ejecuta el callback
+        callback?.Invoke();
+    }
+
+    // Método auxiliar para deserializar arrays de JSON
+    public static T[] FromJson<T>(string json)
+    {
+        string wrappedJson = "{\"Items\":" + json + "}";
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(wrappedJson);
+        return wrapper.Items;
     }
 
     [System.Serializable]
-    private class TarjetaSuerteArray
+    private class Wrapper<T>
     {
-        public TarjetaSuerte[] tarjetas;
+        public T[] Items;
+    }
+
+    public IEnumerator MovePlayerToPosition(Player player, int targetPosition, System.Action callback)
+    {
+        int currentPosition = player.playerMovement.waypointIndex;
+        int steps = Mathf.Abs(targetPosition - currentPosition); // Calcula la cantidad de pasos para llegar al destino
+
+        // Itera sobre los pasos necesarios para llegar al destino
+        for (int i = 0; i < steps; i++)
+        {
+            // Determina la dirección del movimiento (hacia adelante o hacia atrás)
+            int direction = (int)Mathf.Sign(targetPosition - currentPosition);
+
+            // Actualiza la posición del jugador
+            player.playerMovement.waypointIndex += direction;
+
+            // Espera un breve periodo de tiempo antes de mover al siguiente waypoint
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        // Una vez que el jugador llega al destino, invoca el callback
+        callback?.Invoke();
     }
 }
