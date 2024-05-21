@@ -48,6 +48,9 @@ public class GameControl : MonoBehaviour
 
         players = new Player[gameManager.jugadores.Count];
         playerStartWaypoint = new int[gameManager.jugadores.Count];
+        manejoTarjetasSuerte = FindObjectOfType<ManejoTarjetasSuerte>();
+        manejoTarjetasCC = FindObjectOfType<ManejoTarjetasCC>();
+
         for (int i = 0; i < gameManager.jugadores.Count; i++)
         {
             num_jugadores = gameManager.jugadores.Count;
@@ -91,7 +94,6 @@ public class GameControl : MonoBehaviour
                 StartCoroutine(manejoTarjetasSuerte.selectRandomCard());
 
                 // Obtiene el valor de la tarjeta seleccionada
-                int cardIndex = manejoTarjetasSuerte.GetLastCardIndex();
                 int dinero = manejoTarjetasSuerte.GetLastCardMoney();
                 int casillas = manejoTarjetasSuerte.GetLastCardSpaces();
 
@@ -116,7 +118,6 @@ public class GameControl : MonoBehaviour
                 StartCoroutine(manejoTarjetasCC.selectRandomCard());
 
                 // Obtiene el valor de la tarjeta seleccionada
-                int cardIndex = manejoTarjetasCC.GetLastCardIndex();
                 int dinero = manejoTarjetasCC.GetLastCardMoney();
                 int casillas = manejoTarjetasCC.GetLastCardSpaces();
                 string name = manejoTarjetasCC.GetLastCardName();
@@ -143,6 +144,7 @@ public class GameControl : MonoBehaviour
                 {
                     destination = casillas;
                 }
+
                 if(destination != 0)
                 {
                     players[i].playerMovement.waypointIndex = destination;
