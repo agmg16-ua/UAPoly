@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personaje: {fileID: 5226754325712260584, guid: 3ce885401cd2d0c41956ad4ad5477057, type: 3}
   nombre: Ardilla
-  imagen: {fileID: 21300000, guid: bc11faebb53b3b24bac83b85e2a7e03a, type: 3}
+  imagen: {fileID: 21300000, guid: 652462fa3b81f554bbc57e166f459dea, type: 3}
