@@ -20,11 +20,6 @@
     "casillas": 0
   },
   {
-    "imagen": "CC06",
-    "dinero": 200,
-    "casillas": 1
-  },
-  {
     "imagen": "CC07",
     "dinero": -200,
     "casillas": 0
@@ -43,16 +38,6 @@
     "imagen": "CC10",
     "dinero": -25,
     "casillas": 0
-  },
-  {
-    "imagen": "CC11",
-    "dinero": 0,
-    "casillas": 30
-  },
-  {
-    "imagen": "CC12",
-    "dinero": 0,
-    "casillas": -1
   },
   {
     "imagen": "CC13",
@@ -80,11 +65,6 @@
     "casillas": 0
   },
   {
-    "imagen": "CC19",
-    "dinero": 0,
-    "casillas": 30
-  },
-  {
     "imagen": "CC20",
     "dinero": -100,
     "casillas": 0
@@ -93,11 +73,6 @@
     "imagen": "CC21",
     "dinero": -50,
     "casillas": 0
-  },
-  {
-    "imagen": "CC22",
-    "dinero": 0,
-    "casillas": 32
   },
   {
     "imagen": "CC23",

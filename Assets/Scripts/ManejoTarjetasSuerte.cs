@@ -71,7 +71,7 @@ public class ManejoTarjetasSuerte : MonoBehaviour
     }
 
     // Coroutine that selects a random card
-    public IEnumerator selectRandomCard()
+    public IEnumerator selectRandomCard(Player player, int playerIndex, int[] playerStartWaypoint)
     {
         // Lógica para seleccionar una tarjeta aleatoria
         yield return new WaitForSeconds(1); // Simulación de espera
@@ -86,6 +86,20 @@ public class ManejoTarjetasSuerte : MonoBehaviour
 
         // Actualiza el sprite render con la imagen de la tarjeta seleccionada
         rendTarjetas.sprite = selectedCard.imagenSprite;
+
+        // Aplica los efectos de la tarjeta al jugador actual
+        if (tarjetasSuerte[lastCardIndex].dinero > 0)
+        {
+            player.wallet.addMoney(tarjetasSuerte[lastCardIndex].dinero);
+        }
+        if (tarjetasSuerte[lastCardIndex].dinero < 0)
+        {
+            player.wallet.subtractMoney(-tarjetasSuerte[lastCardIndex].dinero);
+        }
+        if (tarjetasSuerte[lastCardIndex].casillas != 0)
+        {
+            StartCoroutine(MovePlayerToPosition(player, tarjetasSuerte[lastCardIndex].casillas, playerIndex, playerStartWaypoint));
+        }
     }
 
     // Métodos para obtener los valores de la última tarjeta seleccionada
@@ -116,6 +130,22 @@ public class ManejoTarjetasSuerte : MonoBehaviour
     private class Wrapper<T>
     {
         public T[] Items;
+    }
+
+    // Método para enviar al jugador a otra casilla
+    private IEnumerator MovePlayerToPosition(Player player, int position, int playerIndex, int[] playerStartWaypoint)
+    {
+        UnityEngine.Debug.Log("Player " + (position + 1) + " is moving to new position...");
+        // Mueve al jugador a la casilla de la tarjeta de evento.
+        playerStartWaypoint[playerIndex] = position;
+        player.playerMovement.waypointIndex = position;
+
+        // Desactiva el movimiento del jugador
+        player.playerMovement.moveAllowed = false;
+
+        // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
+        // Espera tres turnos antes de reactivar el movimiento
+        yield return new WaitForSeconds(3 * Time.deltaTime * 60);
     }
 
 }

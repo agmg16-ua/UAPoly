@@ -90,65 +90,14 @@ public class GameControl : MonoBehaviour
             players[i].turnosRestantesCarcel = jailTurns[i];
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 37 || players[i].playerMovement.waypointIndex == 23 || players[i].playerMovement.waypointIndex == 8))
             {
-                // Selecciona una tarjeta de suerte aleatoria y espera a que termine
-                StartCoroutine(manejoTarjetasSuerte.selectRandomCard());
-
-                // Obtiene el valor de la tarjeta seleccionada
-                int dinero = manejoTarjetasSuerte.GetLastCardMoney();
-                int casillas = manejoTarjetasSuerte.GetLastCardSpaces();
-
-                // Aplica los efectos de la tarjeta al jugador actual
-                if (dinero > 0)
-                {
-                    players[i].wallet.addMoney(dinero);
-                }
-                if (dinero < 0)
-                {
-                    players[i].wallet.subtractMoney(dinero);
-                }
-                if (casillas != 0)
-                {
-                    StartCoroutine(MovePlayerToPosition(i, casillas));
-                }
+                // Selecciona una tarjeta de suerte aleatoria
+                StartCoroutine(manejoTarjetasSuerte.selectRandomCard(players[i], i, playerStartWaypoint));
             }
 
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 3 || players[i].playerMovement.waypointIndex == 18 || players[i].playerMovement.waypointIndex == 34))
             {
                 // Selecciona una tarjeta de suerte aleatoria
-                StartCoroutine(manejoTarjetasCC.selectRandomCard());
-
-                // Obtiene el valor de la tarjeta seleccionada
-                int dinero = manejoTarjetasCC.GetLastCardMoney();
-                int casillas = manejoTarjetasCC.GetLastCardSpaces();
-                string name = manejoTarjetasCC.GetLastCardName();
-
-                // Aplica los efectos de la tarjeta al jugador actual
-                if (dinero > 0)
-                {
-                    players[i].wallet.addMoney(dinero);
-                }
-                if (dinero < 0)
-                {
-                    players[i].wallet.subtractMoney(dinero);
-                }
-
-                int destination = 0;
-
-                if (name == "CC23")
-                {
-                    int actual = players[i].playerMovement.waypointIndex;
-                    int distanceTo15 = (15 - actual + 40) % 40;
-                    int distanceTo36 = (36 - actual + 40) % 40;
-                    destination = (distanceTo15 < distanceTo36) ? 15 : 36;
-                } else
-                {
-                    destination = casillas;
-                }
-
-                if(destination != 0)
-                {
-                    StartCoroutine(MovePlayerToPosition(i, casillas));
-                }
+                StartCoroutine(manejoTarjetasCC.selectRandomCard(players[i], i, playerStartWaypoint));
             }
 
             if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 31)
@@ -288,22 +237,6 @@ public class GameControl : MonoBehaviour
             UnityEngine.Debug.Log("Player " + whosTurn + " must roll the dice first!");
         }
         
-    }
-
-    // Método para enviar al jugador a la cárcel
-    private IEnumerator MovePlayerToPosition(int playerIndex, int position)
-    {
-        UnityEngine.Debug.Log("Player " + (playerIndex + 1) + " is moving to new position...");
-        // Mueve al jugador a la casilla de la tarjeta de evento.
-        playerStartWaypoint[playerIndex] = position;
-        players[playerIndex].playerMovement.waypointIndex = position;
-
-        // Desactiva el movimiento del jugador
-        players[playerIndex].playerMovement.moveAllowed = false;
-
-        // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
-        // Espera tres turnos antes de reactivar el movimiento
-        yield return new WaitForSeconds(3 * Time.deltaTime * 60);
     }
 
 }
