@@ -9,7 +9,7 @@ public class CardDatabase : MonoBehaviour {
 
     // Secciones cartas jugando y no jugando
     public static float[] pos_NonPlayingCard0 = { -13.5f, 9.7f };
-    public static float[] pos_PlayingCard = { 15.9f, 7.1f };
+    public static float[] pos_PlayingCard = { 17.5f, 7.7f };
     public static float posY_NextNonPlayingCard = -9.4f;
 
     // Lista de cartas

@@ -91,64 +91,13 @@ public class GameControl : MonoBehaviour
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 37 || players[i].playerMovement.waypointIndex == 23 || players[i].playerMovement.waypointIndex == 8))
             {
                 // Selecciona una tarjeta de suerte aleatoria
-                StartCoroutine(manejoTarjetasSuerte.selectRandomCard());
-
-                // Obtiene el valor de la tarjeta seleccionada
-                int dinero = manejoTarjetasSuerte.GetLastCardMoney();
-                int casillas = manejoTarjetasSuerte.GetLastCardSpaces();
-
-                // Aplica los efectos de la tarjeta al jugador actual
-                if (dinero > 0)
-                {
-                    players[i].wallet.addMoney(dinero);
-                }
-                if (dinero < 0)
-                {
-                    players[i].wallet.subtractMoney(dinero);
-                }
-                if (casillas != 0)
-                {
-                    players[i].playerMovement.waypointIndex = casillas;
-                }
+                StartCoroutine(manejoTarjetasSuerte.selectRandomCard(players[i], i, playerStartWaypoint));
             }
 
             if ((playerStartWaypoint[i] + 1) + diceSideThrown == players[i].playerMovement.waypointIndex && (players[i].playerMovement.waypointIndex == 3 || players[i].playerMovement.waypointIndex == 18 || players[i].playerMovement.waypointIndex == 34))
             {
                 // Selecciona una tarjeta de suerte aleatoria
-                StartCoroutine(manejoTarjetasCC.selectRandomCard());
-
-                // Obtiene el valor de la tarjeta seleccionada
-                int dinero = manejoTarjetasCC.GetLastCardMoney();
-                int casillas = manejoTarjetasCC.GetLastCardSpaces();
-                string name = manejoTarjetasCC.GetLastCardName();
-
-                // Aplica los efectos de la tarjeta al jugador actual
-                if (dinero > 0)
-                {
-                    players[i].wallet.addMoney(dinero);
-                }
-                if (dinero < 0)
-                {
-                    players[i].wallet.subtractMoney(dinero);
-                }
-
-                int destination = 0;
-
-                if (name == "CC23")
-                {
-                    int actual = players[i].playerMovement.waypointIndex;
-                    int distanceTo15 = (15 - actual + 40) % 40;
-                    int distanceTo36 = (36 - actual + 40) % 40;
-                    destination = (distanceTo15 < distanceTo36) ? 15 : 36;
-                } else
-                {
-                    destination = casillas;
-                }
-
-                if(destination != 0)
-                {
-                    players[i].playerMovement.waypointIndex = destination;
-                }
+                StartCoroutine(manejoTarjetasCC.selectRandomCard(players[i], i, playerStartWaypoint));
             }
 
             if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].playerMovement.waypointIndex && players[i].playerMovement.waypointIndex == 31)
@@ -289,4 +238,5 @@ public class GameControl : MonoBehaviour
         }
         
     }
+
 }

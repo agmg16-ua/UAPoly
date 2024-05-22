@@ -21,11 +21,8 @@ public class ManejoTarjetasCC : MonoBehaviour
         public Sprite imagenSprite;
     }
 
-    // Variables para almacenar el valor de la última tarjeta seleccionada
-    private string lastCardName;
+    // Variable para almacenar el valor de la última tarjeta seleccionada
     private int lastCardIndex;
-    private int lastCardMoney;
-    private int lastCardSpaces;
 
     // Use this for initialization
     private void Start()
@@ -42,7 +39,7 @@ public class ManejoTarjetasCC : MonoBehaviour
             string json = jsonFile.text;
 
             // Deserializar el JSON en un array de objetos TarjetaSuerte
-            tarjetasSuerte = JsonUtility.FromJson<TarjetaSuerteArray>(json).tarjetas;
+            tarjetasSuerte = FromJson<TarjetaSuerte>(json);
 
             // Cargar las imágenes de las tarjetas de suerte
             foreach (TarjetaSuerte tarjeta in tarjetasSuerte)
@@ -63,37 +60,10 @@ public class ManejoTarjetasCC : MonoBehaviour
         {
             Debug.LogError("No se pudo cargar el archivo JSON desde Resources");
         }
-
-        // Inicializar las variables de la última tarjeta seleccionada
-        lastCardName = "";
-        lastCardIndex = -1;
-        lastCardMoney = 0;
-        lastCardSpaces = 0;
     }
 
-    // Métodos para obtener los valores de la última tarjeta seleccionada
-    public int GetLastCardIndex()
-    {
-        return lastCardIndex;
-    }
-
-    public int GetLastCardMoney()
-    {
-        return lastCardMoney;
-    }
-
-    public int GetLastCardSpaces()
-    {
-        return lastCardSpaces;
-    }
-
-    public string GetLastCardName()
-    {
-        return lastCardName;
-    }
-
-    // Simulación de selección aleatoria de tarjeta
-    public IEnumerator selectRandomCard()
+    // Corrutina para seleccionar una tarjeta de suerte aleatoria y ejecutar un callback
+    public IEnumerator selectRandomCard(Player player, int playerIndex, int[] playerStartWaypoint)
     {
         // Lógica para seleccionar una tarjeta aleatoria
         yield return new WaitForSeconds(1); // Simulación de espera
@@ -102,18 +72,67 @@ public class ManejoTarjetasCC : MonoBehaviour
         lastCardIndex = Random.Range(0, tarjetasSuerte.Length);
         TarjetaSuerte selectedCard = tarjetasSuerte[lastCardIndex];
 
-        // Almacena los valores de la tarjeta seleccionada
-        lastCardMoney = selectedCard.dinero;
-        lastCardSpaces = selectedCard.casillas;
-        lastCardName = selectedCard.imagen;
-
         // Actualiza el sprite render con la imagen de la tarjeta seleccionada
         rendTarjetas.sprite = selectedCard.imagenSprite;
+
+        // Aplica los efectos de la tarjeta al jugador actual
+        if (tarjetasSuerte[lastCardIndex].dinero > 0)
+        {
+            player.wallet.addMoney(tarjetasSuerte[lastCardIndex].dinero);
+        }
+        if (tarjetasSuerte[lastCardIndex].dinero < 0)
+        {
+            player.wallet.subtractMoney(-tarjetasSuerte[lastCardIndex].dinero);
+        }
+
+        int destination = 0;
+
+        if (name == "CC23")
+        {
+            int actual = player.playerMovement.waypointIndex;
+            int distanceTo15 = (15 - actual + 40) % 40;
+            int distanceTo36 = (36 - actual + 40) % 40;
+            destination = (distanceTo15 < distanceTo36) ? 15 : 36;
+        }
+        else
+        {
+            destination = tarjetasSuerte[lastCardIndex].casillas;
+        }
+
+        if (destination != 0)
+        {
+            StartCoroutine(MovePlayerToPosition(player, tarjetasSuerte[lastCardIndex].casillas, playerIndex, playerStartWaypoint));
+        }
+    }
+
+    // Método auxiliar para deserializar arrays de JSON
+    public static T[] FromJson<T>(string json)
+    {
+        string wrappedJson = "{\"Items\":" + json + "}";
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(wrappedJson);
+        return wrapper.Items;
     }
 
     [System.Serializable]
-    private class TarjetaSuerteArray
+    private class Wrapper<T>
     {
-        public TarjetaSuerte[] tarjetas;
+        public T[] Items;
     }
+
+    // Método para enviar al jugador a otra casilla
+    private IEnumerator MovePlayerToPosition(Player player, int position, int playerIndex, int[] playerStartWaypoint)
+    {
+        UnityEngine.Debug.Log("Player " + (position + 1) + " is moving to new position...");
+        // Mueve al jugador a la casilla de la tarjeta de evento.
+        playerStartWaypoint[playerIndex] = position;
+        player.playerMovement.waypointIndex = position;
+
+        // Desactiva el movimiento del jugador
+        player.playerMovement.moveAllowed = false;
+
+        // Espera tres segundos en tiempo de juego antes de reactivar el movimiento
+        // Espera tres turnos antes de reactivar el movimiento
+        yield return new WaitForSeconds(3 * Time.deltaTime * 60);
+    }
+
 }
