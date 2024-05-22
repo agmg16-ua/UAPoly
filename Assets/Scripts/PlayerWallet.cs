@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerWallet : MonoBehaviour
 {//this will store all the information a player has regarding money and properties
 	private int myWallet;
-	public ArrayList myLandList;
+	//public ArrayList myLandList;
+	private List<GameObject> myLandList;
 	public GameManager monopolyGame;
 	public bool isBankrupt;
 	public bool restado = false;
@@ -15,7 +17,7 @@ public class PlayerWallet : MonoBehaviour
 	{
 		isBankrupt = false;
 		myWallet = 1500;
-		myLandList = new ArrayList();
+		myLandList = new List<GameObject>();
 	}
 
 	// Update is called once per frame
@@ -52,11 +54,14 @@ public class PlayerWallet : MonoBehaviour
 		myWallet = myWallet - debt;
 		
 	}
-
-	public void addLand(ArrayList newLand)
+	public void addLand(GameObject newLand)
+	{
+		myLandList.Add(newLand); // Agregar la propiedad a la lista
+	}
+	/*public void addLand(ArrayList newLand)
 	{
 		myLandList.Add(newLand);
-	}
+	}*/
 	//something to manipulate landList
 
 }

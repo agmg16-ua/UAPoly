@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GameControl : MonoBehaviour
 {
@@ -23,6 +26,19 @@ public class GameControl : MonoBehaviour
     public static int[] jailTurns = new int[4];
 
     public static int bote = 10;
+    public static PropertyManager propertyManager;
+
+
+    // Referencia al Text y Button para la entrada de usuario
+    public Text userInputText;
+    public Button confirmButton;
+
+    // Variables internas
+    private int currentPlayerIndex;
+    private PropertyTile currentPropertyTile;
+
+
+
     // Se llama al inicio del script
     void Start()
     {
@@ -34,6 +50,7 @@ public class GameControl : MonoBehaviour
             playerStartWaypoint[i] = 0;
             players[i].GetComponent<PlayerMove>().moveAllowed = false;
         }
+        propertyManager = GetComponent<PropertyManager>();
     }
 
     // Se llama una vez por fotograma
@@ -42,8 +59,21 @@ public class GameControl : MonoBehaviour
         // Verifica si cada jugador ha alcanzado su waypoint objetivo
         for (int i = 0; i < 4; i++)
         {
+            //compras
+            if ((playerStartWaypoint[i] + diceSideThrown) < players[i].GetComponent<PlayerMove>().waypoints.Length)
+            {
+                GameObject currentWaypoint = players[i].GetComponent<PlayerMove>().waypoints[playerStartWaypoint[i] + diceSideThrown].gameObject;
 
-            if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 31)
+                // Verificar si el waypoint actual es una propiedad
+                if (currentWaypoint.GetComponent<PropertyTile>() != null)
+                {
+                    // Verificar si el jugador puede comprar la propiedad
+                    CheckProperty(i, currentWaypoint);
+                }
+            }
+
+
+            else if ((playerStartWaypoint[i]+1) + diceSideThrown == players[i].GetComponent<PlayerMove>().waypointIndex && players[i].GetComponent<PlayerMove>().waypointIndex == 31)
             {
                 StartCoroutine(SendToJail(i));
             }
@@ -56,6 +86,7 @@ public class GameControl : MonoBehaviour
             {
                 StartCoroutine(sumarBote(i));
             }
+            
             else if ((playerStartWaypoint[i]+1) + diceSideThrown > players[i].GetComponent<PlayerMove>().waypoints.Length - 1)
             {
                 int waypointsNextLap = diceSideThrown - (players[i].GetComponent<PlayerMove>().waypoints.Length - 1 - playerStartWaypoint[i]);
@@ -90,6 +121,8 @@ public class GameControl : MonoBehaviour
         }
     }
 
+
+
     // Método estático para mover al jugador especificado
     public static void MovePlayer(int playerToMove)
     {
@@ -99,6 +132,7 @@ public class GameControl : MonoBehaviour
             bote = 10;
         }
     }
+
 
     // Método para enviar al jugador a la cárcel
     private IEnumerator SendToJail(int playerIndex)
@@ -162,4 +196,89 @@ public class GameControl : MonoBehaviour
         // Espera tres turnos antes de reactivar el movimiento
         yield return new WaitForSeconds(3 * Time.deltaTime * 60);
     }
+
+
+
+    // Método para mostrar opciones de compra de propiedades
+    public void ShowBuyPropertyOption(int playerIndex, int propertyPrice)
+    {
+        userInputTextMesh.text = "Player " + (playerIndex + 1) + ", do you want to buy this property for $" + propertyPrice + "? (y/n)";
+        confirmButton.gameObject.SetActive(true);
+        currentPlayerIndex = playerIndex;
+    }
+
+    // Método llamado cuando se presiona el botón de confirmar
+    public void OnConfirmButtonClicked()
+    {
+        string input = userInputTextMesh.text.ToLower();
+
+        if (input == "y")
+        {
+            propertyManager.BuyProperty(currentPropertyTile, players[currentPlayerIndex]);
+        }
+        else
+        {
+            propertyManager.PayRent(currentPropertyTile, players[currentPlayerIndex]);
+        }
+
+        userInputTextMesh.text = "";
+        confirmButton.gameObject.SetActive(false);
+    }
+
+    // Método para verificar si el jugador ha caído en una propiedad disponible para la compra
+    public void CheckProperty(int playerIndex, GameObject property)
+    {
+        PropertyTile propertyTile = property.GetComponent<PropertyTile>();
+
+        if (propertyTile.owner == null)
+        {
+            ShowBuyPropertyOption(playerIndex, propertyTile.price);
+        }
+        else
+        {
+            propertyManager.PayRent(propertyTile, players[playerIndex]);
+        }
+
+        currentPropertyTile = propertyTile;
+    }
+    /*
+    // Método para mostrar opciones de compra de propiedades
+    public static void ShowBuyPropertyOption(int playerIndex, int propertyPrice)
+    {
+        UnityEngine.Debug.Log("Player " + (playerIndex + 1) + ", do you want to buy this property for $" + propertyPrice + "? (y/n)");
+    }
+    // Método para leer la entrada del usuario desde la consola
+    public static bool ReadUserInput()
+    {
+        string input = Console.ReadLine();
+        return input.Trim().ToLower() == "y"; // Devuelve true si el usuario ingresa "y", false en caso contrario
+    }
+    // Método para verificar si el jugador ha caído en una propiedad disponible para la compra
+    public static void CheckProperty(int playerIndex, GameObject property)
+    {
+        PropertyTile propertyTile = property.GetComponent<PropertyTile>();
+
+        // Verificar si la propiedad tiene un propietario
+        if (propertyTile.owner == null)
+        {
+            // Mostrar opción de compra al jugador
+            ShowBuyPropertyOption(playerIndex, propertyTile.price);
+
+            // Leer la entrada del jugador
+            bool wantsToBuy = ReadUserInput();
+
+            if (wantsToBuy)
+            {
+                // Comprar la propiedad
+                propertyManager.BuyProperty(propertyTile, players[playerIndex]);
+            }
+        }
+        else
+        {
+            // Pagar alquiler
+            propertyManager.PayRent(propertyTile, players[playerIndex]);
+        }
+    }*/
+
+
 }
